@@ -1,9 +1,9 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit, AfterViewInit } from '@angular/core';
 import { ModalController, NavController } from '@ionic/angular';
 import { CategoriesModalPage } from '../categories-modal/categories-modal.page';
 import { DatabaseService } from '../../services/database.service';
 import { Router } from '@angular/router';
-import { ElementRef, NgZone, OnInit, ViewChild } from '@angular/core';
+import { ElementRef, NgZone, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 @Component({
@@ -11,10 +11,11 @@ import { FormControl } from '@angular/forms';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage implements OnDestroy{
+export class HomePage implements OnDestroy, OnInit, AfterViewInit{
 
   ads: any;
   adSub:any;
+  showSpinners:boolean = true;
 
   slideOpts = {
     effect: 'flip'
@@ -23,11 +24,19 @@ export class HomePage implements OnDestroy{
   constructor(public db: DatabaseService, public modalController: ModalController,
      public navCtrl:NavController,
      public router: Router) {
+  }
 
-      this.adSub = this.db.getAdsViaGeoPoint()
-      .subscribe( data => {
-        this.ads = data
-      });
+  ngOnInit() {
+    
+
+  }
+
+  ngAfterViewInit() {
+    this.adSub = this.db.getAdsViaGeoPoint()
+    .subscribe( data => {
+      this.ads = data
+      this.showSpinners = false;
+    });
   }
 
   async presentCatModal() {

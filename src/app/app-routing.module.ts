@@ -14,7 +14,8 @@ const routes: Routes = [
   { path: 'categoriesModal', loadChildren: './pages/categories-modal/categories-modal.module#CategoriesModalPageModule' },
   { path: 'ad/:id', loadChildren: './pages/ad/ad.module#AdPageModule' },
   { path: 'map', loadChildren: './pages/map/map.module#MapPageModule' },
-  { path: 'galleryModal', loadChildren: './pages/gallery-modal/gallery-modal.module#GalleryModalPageModule' }
+  { path: 'galleryModal', loadChildren: './pages/gallery-modal/gallery-modal.module#GalleryModalPageModule' },
+  { path: 'chatClient/:id', loadChildren: './pages/chat-client/chat-client.module#ChatClientPageModule' }
 ];
 
 @NgModule({
