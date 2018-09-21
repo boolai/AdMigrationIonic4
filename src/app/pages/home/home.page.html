@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-searchbar animated color="danger" placeholder="type location"></ion-searchbar>
+    <ion-buttons slot="primary">
+      <ion-button color="danger" (click)="presentCatModal()">
+        <ion-icon slot="icon-only" name="more"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card *ngFor="let ad of ads" (click)="goToPage(ad)">
+    <ion-img src="{{ad.photos[0].url}}"></ion-img>
+    <ion-card-content>
+      <ion-card-title>{{ad.title}}</ion-card-title>
+      <p>{{ad.city}}</p>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

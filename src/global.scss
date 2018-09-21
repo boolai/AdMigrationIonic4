@@ -1,0 +1,96 @@
+// http://ionicframework.com/docs/theming/
+@import "~@ionic/angular/css/core.css";
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+
+ion-content {
+    --background:#3b3a3a;;
+    --color: var(--ion-text-color, rgb(255, 255, 255));
+    --padding-top: 0px;
+    --padding-bottom: 0px;
+    --padding-start: 0px;
+    --padding-end: 0px;
+    --keyboard-offset: 0px;
+    --offset-top: 0px;
+    --offset-bottom: 0px;
+    display: block;
+    position: relative;
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: var(--background);
+    color: var(--color);
+    font-family: var(--ion-font-family, inherit);
+    contain: layout size style;
+}
+
+ion-card {
+    position: relative;
+    text-align: center;
+    background-color: black;
+}
+
+.card-title {
+    position: absolute;
+    bottom: 10px;
+    left: 0px;
+    font-size: 1em;
+    width: 100%;
+    font-weight: bold;
+    color: #fff;
+    background-color: #222;
+}
+
+.card-title-alt {
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2em;
+    width: 100%;
+    font-weight: bold;
+    color: #fff;
+    background-color: black;
+}
+
+.card-subtitle {
+    font-size: 1.0em;
+    position: absolute;
+    bottom: 8px;
+    left: 16px;
+    color: #fff;
+    background-color: black;
+}
+
+.cardBorder {
+    border-radius: 10px 10px 10px 10px;
+    -moz-border-radius: 10px 10px 10px 10px;
+    -webkit-border-radius: 10px 10px 10px 10px;
+    border: 2px solid #ffffff;
+    -webkit-box-shadow: 5px 5px 17px 2px rgba(0, 0, 0, 0.79);
+    -moz-box-shadow: 5px 5px 17px 2px rgba(0, 0, 0, 0.79);
+    box-shadow: 5px 5px 17px 2px rgba(0, 0, 0, 0.79);
+}
+
+ion-menu-button {
+    color:white;
+}
+
+ion-item {
+    background-color: #222;
+    color:white;
+}
+
+a { 
+    color: inherit;
+    text-decoration : none; 
+} 

@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar color="dark">
+      <ion-title slot="start">Categories</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button color="danger" (click)="closeModal()">
+        <ion-icon slot="icon-only" name="close-circle"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let cat of cats;">
+      <!--
+      <ion-avatar slot="start">
+        <img src="/docs/assets/img/avatar-finn.png"></img>
+      </ion-avatar>
+    -->
+      <ion-label>
+        <h2 text-center (click)="switchCat(cat)">{{cat.title}}</h2>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

@@ -1,0 +1,14 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-title slot="start">Image</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button color="danger" (click)="closeModal()">
+        <ion-icon slot="icon-only" name="close-circle"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-img [src]="value.url"></ion-img>
+</ion-content>
