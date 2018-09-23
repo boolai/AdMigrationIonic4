@@ -5,36 +5,34 @@ import { DatabaseService } from '../../services/database.service';
 import { Router } from '@angular/router';
 import { ElementRef, NgZone, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { Slides } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage implements OnDestroy, OnInit, AfterViewInit{
+export class HomePage implements OnDestroy, OnInit, AfterViewInit {
 
   ads: any;
-  adSub:any;
-  showSpinners:boolean = true;
+  adSub: any;
+  showSpinners = true;
 
   slideOpts = {
-    effect: 'flip'
+    effect: 'slide'
   };
 
   constructor(public db: DatabaseService, public modalController: ModalController,
-     public navCtrl:NavController,
+     public navCtrl: NavController,
      public router: Router) {
   }
 
-  ngOnInit() {
-    
-
-  }
+  ngOnInit() {}
 
   ngAfterViewInit() {
     this.adSub = this.db.getAdsViaGeoPoint()
     .subscribe( data => {
-      this.ads = data
+      this.ads = data;
       this.showSpinners = false;
     });
   }
@@ -51,8 +49,7 @@ export class HomePage implements OnDestroy, OnInit, AfterViewInit{
     this.adSub.unsubscribe();
   }
 
-  public goToPage(ad:any) {
+  public goToPage(ad: any) {
     this.router.navigateByUrl('/ad/' + ad.id);
   }
-
 }

@@ -87,6 +87,6 @@
         <variable name="WEB_APPLICATION_CLIENT_ID" value="352394499087-f1t9fn297b2p0ee2jprgtk3d4kgp294d.apps.googleusercontent.com" />
     </plugin>
     <plugin name="mx.ferreyra.callnumber" spec="~0.0.2" />
-    <engine name="ios" spec="4.5.5" />
     <plugin name="cordova-plugin-inappbrowser" spec="^3.0.0" />
+    <engine name="ios" spec="4.5.5" />
 </widget>

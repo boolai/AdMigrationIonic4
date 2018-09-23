@@ -26,9 +26,9 @@ export class AdPage implements OnInit, OnDestroy {
     public route: ActivatedRoute,
     public db: DatabaseService,
     public callNumber: CallNumber,
-    private modalCtrl:ModalController,
+    private modalCtrl: ModalController,
     private iab: InAppBrowser,
-    public auth:AuthService) {
+    public auth: AuthService) {
   }
 
   ngOnInit() {
@@ -53,10 +53,15 @@ export class AdPage implements OnInit, OnDestroy {
   }
 
   public goToChat() {
-    this.router.navigateByUrl('/chatClient/' + this.ad.id);
+
+    if (this.auth.authenticated) {
+      this.router.navigateByUrl('/chatClient/' + this.ad.id);
+    } else {
+      this.router.navigateByUrl('/authorization/chatClient/' + this.ad.id);
+    }
   }
 
-  async openGallery(photo:any) {
+  async openGallery(photo: any) {
     const modal = await this.modalCtrl.create({
       component: GalleryModalPage,
       componentProps: { value: photo }
@@ -64,8 +69,8 @@ export class AdPage implements OnInit, OnDestroy {
     return await modal.present();
   }
 
-  openWebLink(url:string) {
-    const browser = this.iab.create(url,'_blank');
+  openWebLink(url: string) {
+    const browser = this.iab.create(url, '_blank');
     browser.show();
   }
 
@@ -78,21 +83,21 @@ export class AdPage implements OnInit, OnDestroy {
         icon: 'call',
         handler: () => {
           console.log('Call clicked');
-          window.open("tel:+" + this.ad.phone);
+          window.open('tel:+' + this.ad.phone);
         }
       }, {
         text: this.ad.email,
         icon: 'mail',
         handler: () => {
           console.log('Email clicked');
-          window.location.href = "mailto:" + this.ad.email + "?subject=From Lusty Luv&body=Lusty Luv Message:";
+          window.location.href = 'mailto:' + this.ad.email + '?subject=From Lusty Luv&body=Lusty Luv Message:';
         }
       }, {
         text: 'Website ',
         icon: 'globe',
         handler: () => {
           console.log('Email clicked');
-          const browser = this.iab.create(this.ad.website,'_blank');
+          const browser = this.iab.create(this.ad.website, '_blank');
           browser.show();
         }
       },
@@ -101,7 +106,7 @@ export class AdPage implements OnInit, OnDestroy {
         icon: 'logo-twitter',
         handler: () => {
           console.log('Email clicked');
-          const browser = this.iab.create(this.ad.twitter,'_blank');
+          const browser = this.iab.create(this.ad.twitter, '_blank');
           browser.show();
         }
       }, {
@@ -109,7 +114,7 @@ export class AdPage implements OnInit, OnDestroy {
         icon: 'chatboxes',
         handler: () => {
           console.log('Play clicked');
-          //Set route here
+          // Set route here
           this.goToChat();
         }
       }, {
@@ -117,7 +122,7 @@ export class AdPage implements OnInit, OnDestroy {
         icon: 'heart',
         handler: () => {
           console.log('Favorite clicked');
-          //save to user's favorites
+          // save to user's favorites
         }
       }, {
         text: 'Cancel',
@@ -125,7 +130,7 @@ export class AdPage implements OnInit, OnDestroy {
         role: 'cancel',
         handler: () => {
           console.log('Cancel clicked');
-          //go back
+          // go back
         }
       }]
     });
@@ -133,7 +138,7 @@ export class AdPage implements OnInit, OnDestroy {
   }
 
   randomImage() {
-    return Math.floor(Math.random() * this.ad.photos.length-1);
+    return Math.floor(Math.random() * this.ad.photos.length - 1);
   }
 
 }

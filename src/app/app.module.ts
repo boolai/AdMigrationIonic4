@@ -20,7 +20,6 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CategoriesModalPageModule } from './pages/categories-modal/categories-modal.module';
 import { GalleryModalPageModule } from './pages/gallery-modal/gallery-modal.module';
-//import { CategoriesModalPage } from './pages/categories-modal/categories-modal.page';
 import { CallNumber } from '@ionic-native/call-number/ngx';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 

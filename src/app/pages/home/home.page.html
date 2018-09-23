@@ -22,11 +22,13 @@
     <div class="rect5"></div>
   </div>
 
-  <ion-card *ngFor="let ad of ads" (click)="goToPage(ad)">
-    <ion-img src="{{ad.photos[0].url}}"></ion-img>
-    <ion-card-content>
-      <ion-card-title>{{ad.title}}</ion-card-title>
-      <p>{{ad.city}}</p>
-    </ion-card-content>
-  </ion-card>
+  <div *ngIf="showSpinners == false">
+    <ion-card *ngFor="let ad of ads" (click)="goToPage(ad)">
+      <ion-img src="{{ad.photos[0].url}}"></ion-img>
+      <ion-card-content>
+        <ion-card-title>{{ad.title}}</ion-card-title>
+        <p>{{ad.city}}</p>
+      </ion-card-content>
+    </ion-card>
+  </div>
 </ion-content>
