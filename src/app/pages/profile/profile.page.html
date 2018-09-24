@@ -15,5 +15,56 @@
 </ion-header>
 
 <ion-content>
-
+  <ion-list>
+    <ion-item *ngIf="user?.status === 'newUser'" text-center>
+      <ion-label>
+        <h1>Subscribe today! <br /> Get initial 60 days free.</h1>
+        <p>Each month after is just $50.</p>
+      </ion-label>
+    </ion-item>
+    <ion-item *ngIf="user?.status === 'active'" text-center>
+      <ion-label>
+        <h1>Welome Back!</h1>
+        <p>You can have up to 3 ads!</p>
+      </ion-label>
+    </ion-item>
+    <ion-item *ngIf="user?.status === 'pastDue'" text-center>
+      <ion-label>
+        <h1>Your Subscription.</h1>
+        <p>Is past due.</p>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-avatar>
+        <img src="{{user?.photoURL}}" />
+      </ion-avatar>
+      <ion-label>
+        <h3>{{user?.email}}</h3>
+      </ion-label>
+    </ion-item>
+    <ion-item (click)="goToPage('adsList')">
+      <ion-icon name="megaphone"></ion-icon>
+      <ion-label>
+        <h3>Post/Edit Ads</h3>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-icon name="chatboxes"></ion-icon>
+      <ion-label>
+        <h3>Chats</h3>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-icon name="document"></ion-icon>
+      <ion-label>
+        <h3>Receipts</h3>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-icon name="archive"></ion-icon>
+      <ion-label>
+        <h3>My Subscription</h3>
+      </ion-label>
+    </ion-item>
+  </ion-list>
 </ion-content>

@@ -40,8 +40,6 @@ export class AuthorizationPage implements OnInit {
     if (this.auth.authenticated && this.auth.currentUserAnonymous === false) {
       console.log('You are already logged in');
       this.goToPage('/profile');
-
-
     }
   }
 

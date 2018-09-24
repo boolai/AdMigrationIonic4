@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
+import { SubscriptionGuard } from './guards/subscription.guard';
+
 
 const routes: Routes = [
   {
@@ -20,7 +22,8 @@ const routes: Routes = [
   { path: 'authorization', loadChildren: './pages/authorization/authorization.module#AuthorizationPageModule' },
   { path: 'authorization/:returnPath/:data', loadChildren: './pages/authorization/authorization.module#AuthorizationPageModule' },
   { path: 'profile', loadChildren: './pages/profile/profile.module#ProfilePageModule', canActivate: [AuthGuard] },
-  { path: 'logout', loadChildren: './pages/logout/logout.module#LogoutPageModule', canActivate: [AuthGuard] }
+  { path: 'logout', loadChildren: './pages/logout/logout.module#LogoutPageModule', canActivate: [AuthGuard] },
+  { path: 'adsList', loadChildren: './pages/ads-list/ads-list.module#AdsListPageModule', canActivate: [SubscriptionGuard] }
 ];
 
 @NgModule({

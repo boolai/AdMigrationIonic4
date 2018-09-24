@@ -63,7 +63,7 @@ export class AuthService {
       return 'Guest';
     } else if (this.currentUserAnonymous) {
       return 'Anonymous';
-    } else { 
+    } else {
       return this.authState['displayName'] || 'User without a Name';
     }
   }
