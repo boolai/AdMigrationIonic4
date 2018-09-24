@@ -105,7 +105,7 @@ export class AuthService {
             tokenId: token.id,
             stripeID: this.userDb.stripeID
           }, { merge: true })
-      })
+      });
   }
 
   // Social networks
@@ -143,7 +143,7 @@ export class AuthService {
 
   public registerWithEmailPassword(email: string, password: string) {
 
-    return this.afsAuth.auth.createUserWithEmailAndPassword(email, password)
+    return this.afsAuth.auth.createUserWithEmailAndPassword(email, password);
   }
 
   public signInAnonymously() {

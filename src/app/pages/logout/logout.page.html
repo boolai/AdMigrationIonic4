@@ -12,6 +12,11 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
- <p (click)="logOff()">Log Off</p>
+<ion-content text-center>
+  <img src="https://firebasestorage.googleapis.com/v0/b/lustyluv-e5238.appspot.com/o/defaultimages%2FLustyLuvLogobannerol.png?alt=media&token=08749a68-6e5b-4311-8fc5-0119157c1f50"
+    style="width: 100%;" />
+    <h2>Are you sure you want to log off?</h2>
+  <ion-button (click)="goBack()">&nbsp;  &nbsp; &nbsp; No &nbsp; &nbsp; &nbsp;</ion-button>
+  &nbsp;
+  <ion-button (click)="logOff()" color="danger">&nbsp;  &nbsp;  Yes  &nbsp;  &nbsp;</ion-button>
 </ion-content>
