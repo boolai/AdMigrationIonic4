@@ -100,4 +100,10 @@ export class DatabaseService implements OnDestroy {
      const collection = this.dbRef.collection('News');
      return collection.valueChanges();
    }
+
+   public updateCollection(path: string, data: any) {
+     const collection = this.dbRef.collection(path);
+     data['time'] = firebase.firestore.FieldValue.serverTimestamp();
+     return collection.add(data);
+   }
 }

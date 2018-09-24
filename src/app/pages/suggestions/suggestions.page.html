@@ -11,14 +11,27 @@
         <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-buttons slot="primary">
-      <ion-button color="danger" (click)="presentActionSheet()">
-        <ion-icon slot="icon-only" name="more"></ion-icon>
-      </ion-button>
-    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <img src="https://firebasestorage.googleapis.com/v0/b/lustyluv-e5238.appspot.com/o/defaultimages%2FLustyLuvLogobannerol.png?alt=media&token=08749a68-6e5b-4311-8fc5-0119157c1f50"
+    style="width: 100%;" />
+  <form [formGroup]="commentForm" (ngSubmit)="sendComment()">
+    <ion-item>
+      <ion-label>
+        Email
+      </ion-label>
+      <ion-input required type="email" placeholder="me@lustyLuv.com" name="email" id="email" formControlName="email"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        Comment
+      </ion-label>
+      <ion-textarea required type="text" placeholder="Your Suggestions here." name="comment" id="comment" formControlName="comment" rows="10"></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <ion-button shape="round" color="primary" fill="outline" type="submit">Send Comment</ion-button>
+    </ion-item>
+  </form>
 </ion-content>
