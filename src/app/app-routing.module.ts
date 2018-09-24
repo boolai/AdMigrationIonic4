@@ -31,7 +31,9 @@ const routes: Routes = [
   { path: 'latest', loadChildren: './pages/latest/latest.module#LatestPageModule' },
   { path: 'news', loadChildren: './pages/news/news.module#NewsPageModule' },
   { path: 'suggestions', loadChildren: './pages/suggestions/suggestions.module#SuggestionsPageModule' },
-  { path: 'legal', loadChildren: './pages/legal/legal.module#LegalPageModule' }
+  { path: 'legal', loadChildren: './pages/legal/legal.module#LegalPageModule' },
+  { path: 'postAd', loadChildren: './pages/post-ad/post-ad.module#PostAdPageModule', canActivate: [SubscriptionGuard] },
+  { path: 'editAd', loadChildren: './pages/edit-ad/edit-ad.module#EditAdPageModule' }
 ];
 
 @NgModule({

@@ -42,6 +42,12 @@ export class AppComponent {
       isAuth: true
     },
     {
+      title: 'Post Ad',
+      url: '/postAd',
+      icon: 'images',
+      isAuth: 'default'
+    },
+    {
       title: 'News',
       url: '/news',
       icon: 'paper',

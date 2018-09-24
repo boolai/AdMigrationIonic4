@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>
+    <ion-title color="danger">
       Legal
     </ion-title>
     <ion-buttons slot="primary">
@@ -11,14 +11,27 @@
         <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-buttons slot="primary">
-      <ion-button color="danger" (click)="presentActionSheet()">
-        <ion-icon slot="icon-only" name="more"></ion-icon>
-      </ion-button>
-    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-
+<ion-content padding>
+  <div class="spinner" *ngIf="showSpinners === true">
+    <div class="rect1"></div>
+    <div class="rect2"></div>
+    <div class="rect3"></div>
+    <div class="rect4"></div>
+    <div class="rect5"></div>
+  </div>
+  <div *ngIf="showSpinners === false">
+    <h1 text-center> DISCLAIMER </h1>
+    <p> {{appSettings?.disclaimer}} </p>
+    <h1 text-center> AGE APPROBIATION </h1>
+    <p> {{appSettings?.adult}} </p>
+    <h1 text-center> POLICIES </h1>
+    <p> {{appSettings?.policies}} </p>
+    <h1 text-center> PRIVACY </h1>
+    <p> {{appSettings?.privacy}} </p>
+    <h1 text-center> TERMS </h1>
+    <p> {{appSettings?.terms}} </p>
+  </div>
 </ion-content>
