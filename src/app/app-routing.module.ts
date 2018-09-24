@@ -23,7 +23,15 @@ const routes: Routes = [
   { path: 'authorization/:returnPath/:data', loadChildren: './pages/authorization/authorization.module#AuthorizationPageModule' },
   { path: 'profile', loadChildren: './pages/profile/profile.module#ProfilePageModule', canActivate: [AuthGuard] },
   { path: 'logout', loadChildren: './pages/logout/logout.module#LogoutPageModule', canActivate: [AuthGuard] },
-  { path: 'adsList', loadChildren: './pages/ads-list/ads-list.module#AdsListPageModule', canActivate: [SubscriptionGuard] }
+  { path: 'adsList', loadChildren: './pages/ads-list/ads-list.module#AdsListPageModule', canActivate: [SubscriptionGuard] },
+  { path: 'chatList', loadChildren: './pages/chat-list/chat-list.module#ChatListPageModule', canActivate: [SubscriptionGuard] },
+  { path: 'chatHost', loadChildren: './pages/chat-host/chat-host.module#ChatHostPageModule', canActivate: [SubscriptionGuard] },
+  { path: 'chatRoomsList', loadChildren: './pages/chat-rooms-list/chat-rooms-list.module#ChatRoomsListPageModule' },
+  { path: 'chatRoom/:cat', loadChildren: './pages/chat-room/chat-room.module#ChatRoomPageModule', canActivate: [AuthGuard] },
+  { path: 'latest', loadChildren: './pages/latest/latest.module#LatestPageModule' },
+  { path: 'news', loadChildren: './pages/news/news.module#NewsPageModule' },
+  { path: 'suggestions', loadChildren: './pages/suggestions/suggestions.module#SuggestionsPageModule' },
+  { path: 'legal', loadChildren: './pages/legal/legal.module#LegalPageModule' }
 ];
 
 @NgModule({

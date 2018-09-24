@@ -22,7 +22,8 @@ export class HomePage implements OnDestroy, OnInit, AfterViewInit {
     effect: 'slide'
   };
 
-  constructor(public db: DatabaseService, public modalController: ModalController,
+  constructor(public db: DatabaseService,
+     public modalController: ModalController,
      public navCtrl: NavController,
      public router: Router) {
   }

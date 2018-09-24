@@ -24,21 +24,51 @@ export class AppComponent {
       isAuth: 'default'
     },
     {
-      title: 'Log In',
-      url: '/authorization',
-      icon: 'key',
-      isAuth: false
+      title: 'Latest Lusties',
+      url: '/latest',
+      icon: 'heart',
+      isAuth: 'default'
+    },
+    {
+      title: 'Luv Shacks',
+      url: '/chatRoomsList',
+      icon: 'chatbubbles',
+      isAuth: 'default'
     },
     {
       title: 'Profile',
       url: '/profile',
-      icon: 'key',
+      icon: 'person',
       isAuth: true
+    },
+    {
+      title: 'News',
+      url: '/news',
+      icon: 'paper',
+      isAuth: 'default'
+    },
+    {
+      title: 'Suggestions',
+      url: '/suggestions',
+      icon: 'microphone',
+      isAuth: 'default'
+    },
+    {
+      title: 'Legal',
+      url: '/legal',
+      icon: 'book',
+      isAuth: 'default'
+    },
+    {
+      title: 'Log In',
+      url: '/authorization',
+      icon: 'log-in',
+      isAuth: false
     },
     {
       title: 'Log Out',
       url: '/logout',
-      icon: 'key',
+      icon: 'log-out',
       isAuth: true
     }
   ];
