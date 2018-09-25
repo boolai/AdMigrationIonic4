@@ -1,8 +1,31 @@
 ion-content {
     background-color: white;
+    display: flex;
+    flex-direction: row;
 }
 
 ion-textarea {
     background-color: rgb(58, 58, 58);
     color: white;
 }
+.chat {
+
+    background-color: rgb(70, 70, 70);
+    border: none;
+    width: 90%;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    align-self: flex-end;
+    color: black;
+    -webkit-box-shadow: 10px 10px 5px 0px rgba(133, 133, 133, 0.57);
+    -moz-box-shadow: 10px 10px 5px 0px rgba(133, 133, 133, 0.57);
+    box-shadow: 10px 10px 5px 0px rgba(133, 133, 133, 0.57);
+  }
+  .chat-partner {
+    margin-left: 10%;
+    background-color: rgb(0, 1, 2);
+    color: white;
+    -webkit-box-shadow: 10px 10px 5px 0px rgba(133, 133, 133, 0.57);
+    -moz-box-shadow: 10px 10px 5px 0px rgba(133, 133, 133, 0.57);
+    box-shadow: 10px 10px 5px 0px rgba(133, 133, 133, 0.57);
+  }

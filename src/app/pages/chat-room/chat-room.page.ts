@@ -68,19 +68,27 @@ export class ChatRoomPage implements OnInit, OnDestroy {
   }
 
   public postChat() {
+    if (this.chatForm.valid === true && this.chatForm.get('message').value.length > 1 &&  this.chatForm.get('message').value !== "↵") {
+
     const dat = {
       userId: this.auth.currentUserId,
-      text: 'testing',
-      time: 'whatever'
+      text: this.chatForm.get('message').value,
+      userName: this.auth.currentUserDisplayName,
+      photoUrl: this.auth.userDBObject.photoURL
     };
 
-    this.db.updateCollection('ChatRooms/' + this.cat + '/chats', dat)
+    this.db.updateCollection('ChatRoomsGlobal/' + this.cat + '/chats', dat)
       .then(() => {
         // Clear old text
+        this.chatForm.get('message').setValue('');
       })
       .catch(error => {
-
+        this.presentAlert('Error', error.message);
       });
+
+    } else {
+      this.chatForm.get('message').setValue('');
+    }
   }
 
   async presentAlert(header: string, message: string) {
@@ -91,5 +99,9 @@ export class ChatRoomPage implements OnInit, OnDestroy {
     });
 
     await alert.present();
+  }
+
+  isChatPartner(chat) {
+    return chat.userId === this.auth.currentUserId;
   }
 }
