@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Validators, FormArray } from '@angular/forms';
 import { DatabaseService } from '../../services/database.service';
 import { AlertController } from '@ionic/angular';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-suggestions',
@@ -17,7 +18,8 @@ export class SuggestionsPage implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
   private db: DatabaseService,
-  private alertCtrl: AlertController) {
+  private alertCtrl: AlertController,
+  private location: Location) {
     this.commentForm = this.formBuilder.group({
       email: ['', Validators.compose([Validators.required, Validators.email])],
       comment: ['', Validators.compose([Validators.required, Validators.minLength(6)])]
@@ -56,5 +58,9 @@ export class SuggestionsPage implements OnInit {
     });
 
     await alert.present();
+  }
+
+  public goBack() {
+    this.location.back();
   }
 }
