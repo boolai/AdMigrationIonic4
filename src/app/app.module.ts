@@ -9,6 +9,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
+import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
 
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule, AngularFireDatabase } from '@angular/fire/database';
@@ -45,7 +46,8 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     GooglePlus,
     CallNumber,
-    InAppBrowser
+    InAppBrowser,
+    Facebook
   ],
   bootstrap: [AppComponent]
 })

@@ -98,4 +98,24 @@ export class AuthorizationPage implements OnInit {
 
     await alert.present();
   }
+
+  public signInGoogleWeb() {
+    this.auth.signInWithGoogleWeb()
+    .then(() => {
+      this.router.navigateByUrl('/profile');
+    })
+    .catch(error => {
+      this.presentAlert('Log In Error', error.message);
+    });
+  }
+
+  public signInFacebookWeb() {
+    this.auth.signInWithFacebookWeb()
+    .then(() => {
+      this.router.navigateByUrl('/profile');
+    })
+    .catch(error => {
+      this.presentAlert('Log In Error', error.message);
+    });
+  }
 }

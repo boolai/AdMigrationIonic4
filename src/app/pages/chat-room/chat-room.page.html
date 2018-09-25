@@ -8,14 +8,21 @@
         <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-buttons slot="primary">
-      <ion-button color="danger" (click)="presentActionSheet()">
-        <ion-icon slot="icon-only" name="more"></ion-icon>
-      </ion-button>
-    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
+
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar color="dark">
+    <ion-textarea rows='3' placeholder="Your message here."></ion-textarea>
+    <ion-buttons slot="primary">
+      <ion-button color="danger" (click)="postChat()">
+        <ion-icon slot="icon-only" name="microphone"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

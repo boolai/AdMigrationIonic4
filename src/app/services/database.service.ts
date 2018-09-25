@@ -97,7 +97,7 @@ export class DatabaseService implements OnDestroy {
    }
 
    public queryCollection(path: string) {
-     const collection = this.dbRef.collection('News');
+     const collection = this.dbRef.collection(path);
      return collection.valueChanges();
    }
 

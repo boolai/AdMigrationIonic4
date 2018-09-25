@@ -1,9 +1,156 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>postAd</ion-title>
+  <ion-toolbar color="dark">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Post New Ad
+    </ion-title>
+    <ion-buttons slot="primary">
+      <ion-button (click)="goBack()">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="primary">
+      <ion-button color="danger" (click)="presentActionSheet()">
+        <ion-icon slot="icon-only" name="more"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
+  <form [formGroup]="myForm">
+
+    <input formControlName="email">
+    <input formControlName="message">
+    <input formControlName="phone">
+    {{myForm.value | json}}
+  </form>
+  <section class="contactInfo">
+    <div class="container" text-center>
+      <img src="{{ad?.photos[0].url}}">
+      <div class="centered">
+        <ion-grid>
+          <ion-row text-center>
+            <ion-col>
+              <h1>{{ad?.name}}</h1>
+            </ion-col>
+          </ion-row>
+          <ion-row text-left>
+            <ion-col>
+              <ion-icon name="call"></ion-icon>
+              <ion-input required type="email" placeholder="me@lustyLuv.com" name="username" id="username"></ion-input>
+            </ion-col>
+            <ion-col>
+              <ion-icon name="mail"></ion-icon>
+              <ion-input required type="email" placeholder="me@lustyLuv.com" name="username" id="username"></ion-input>
+            </ion-col>
+          </ion-row>
+          <ion-row text-left>
+            <ion-col (click)="openWebLink(ad.website)">
+              <ion-icon name="globe" style="font-size: 1.5em;"></ion-icon> <span style="font-size: .5em;">{{ad?.website}}</span>
+            </ion-col>
+          </ion-row>
+          <ion-row text-left>
+            <ion-col (click)="openWebLink(ad.website)">
+              <ion-icon name="logo-twitter" style="font-size: 1.5em;"></ion-icon> <span style="font-size: .5em;">{{ad?.twitter}}</span>
+            </ion-col>
+          </ion-row>
+          <ion-row text-center *ngIf="ad?.isChatOn == true">
+            <ion-col (click)="goToChat()">
+              <span style="font-size: 1em">
+                <ion-icon name="chatboxes"></ion-icon> Chat With Me <ion-icon name="chatboxes"></ion-icon>
+              </span>
+              <p style="font-size: .25em;">Must be a registered user in order to use chat.</p>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+    </div>
+  </section>
+  <br /><br />
+  <section class="photos">
+    <ion-slides pager="true" [options]="slideOpts">
+      <ion-slide *ngFor="let p of ad?.photos" (click)="openGallery(p)">
+        <ion-img [src]="p.url"></ion-img>
+      </ion-slide>
+    </ion-slides>
+  </section>
+  <section class="description">
+    <ion-list>
+      <ion-item>
+        <ion-avatar slot="start">
+          <img src="{{ad?.photos[0].url}}" />
+        </ion-avatar>
+        <ion-label text-center>
+          <h2>Name</h2>
+          <h3>{{ad?.name}}</h3>
+        </ion-label>
+        <ion-avatar slot="end">
+          <img src="{{ad?.photos[1].url}}" />
+        </ion-avatar>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          <h2>Age</h2>
+          <h3>{{ad?.age}}</h3>
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          <h2>Eyes</h2>
+          <h3>{{ad?.eyes}}</h3>
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          <h2>Hair</h2>
+          <p>{{ad?.hair}}</p>
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          <h2>Measurements</h2>
+          <p>{{ad?.measurements}}</p>
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          <h2>Height</h2>
+          <h3>{{ad?.height}}</h3>
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          <h2>Weight</h2>
+          <h3>{{ad?.weight}}</h3>
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          <h2>Gender</h2>
+          <h3>{{ad?.gender}}</h3>
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          <h2>Location</h2>
+          <h3>{{ad?.city}}</h3>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+    <h2 text-center>Description</h2>
+    <p style="padding: 10px;">{{ad?.description}}</p>
+  </section>
 
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar color="danger">
+    <ion-title text-center>
+      <ion-icon name="call"></ion-icon> {{ad?.phone}}
+      {{myForm.value.phone}}
+    </ion-title>
+  </ion-toolbar>
+</ion-footer>

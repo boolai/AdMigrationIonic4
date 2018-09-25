@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/do';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
+import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook/ngx';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,8 @@ export class AuthService {
 
   constructor(private afsAuth: AngularFireAuth,
     private afs: AngularFirestore,
-    private gplus: GooglePlus) {
+    private gplus: GooglePlus,
+    private fb: Facebook) {
     this.subscription = this.afsAuth.authState.subscribe((auth) => {
 
       this.authState = auth;
@@ -187,17 +189,14 @@ export class AuthService {
     return await this.afsAuth.auth.signInWithCredential(firebase.auth.GoogleAuthProvider.credential(gplusUser.idToken))
   }
 
-  /*
   facebookLogin(): Promise<any> {
     return this.fb.login(['email'])
       .then(response => {
         const facebookCredential = firebase.auth.FacebookAuthProvider
           .credential(response.authResponse.accessToken);
 
-        return firebase.auth().signInWithCredential(facebookCredential)
-
-
-      })
+        return firebase.auth().signInWithCredential(facebookCredential);
+      });
   }
-  */
+  
 }
