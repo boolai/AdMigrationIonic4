@@ -23,6 +23,10 @@ import { CategoriesModalPageModule } from './pages/categories-modal/categories-m
 import { GalleryModalPageModule } from './pages/gallery-modal/gallery-modal.module';
 import { CallNumber } from '@ionic-native/call-number/ngx';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
+import { ApplicationRef } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+import { AgmCoreModule } from '@agm/core';
 
 @NgModule({
   declarations: [AppComponent],
@@ -38,7 +42,10 @@ import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
     FormsModule,
     ReactiveFormsModule,
     CategoriesModalPageModule,
-    GalleryModalPageModule
+    GalleryModalPageModule,
+    AgmCoreModule.forRoot({
+      apiKey: environment.googleMapKey
+    })
   ],
   providers: [
     StatusBar,

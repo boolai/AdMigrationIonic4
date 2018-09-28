@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Validators, FormArray } from '@angular/forms';
+import { Slides } from '@ionic/angular';
 
 @Component({
   selector: 'app-chat-room',
@@ -14,13 +15,20 @@ import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Valida
 })
 export class ChatRoomPage implements OnInit, OnDestroy {
 
+  public ads: any;
   public chats: any;
   public subs: any;
   public sub: any;
+  public subAds: any;
   public cat: any;
   message = new FormControl('');
 
   chatForm: FormGroup;
+
+  slideOpts = {
+    effect: 'slide',
+    loop: true
+  };
 
   constructor(public location: Location,
     public auth: AuthService,
@@ -45,6 +53,9 @@ export class ChatRoomPage implements OnInit, OnDestroy {
             this.chats = data;
             console.log(data);
           });
+
+        this.ads = this.db.getAds();
+
       } else {
         // Send alert and re route
         this.presentAlert('Error', 'Room does not exist');
@@ -103,5 +114,9 @@ export class ChatRoomPage implements OnInit, OnDestroy {
 
   isChatPartner(chat) {
     return chat.userId === this.auth.currentUserId;
+  }
+
+  slidesDidLoad(slides: Slides) {
+    slides.startAutoplay();
   }
 }

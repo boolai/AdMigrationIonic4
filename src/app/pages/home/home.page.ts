@@ -34,6 +34,7 @@ export class HomePage implements OnDestroy, OnInit, AfterViewInit {
     this.adSub = this.db.getAdsViaGeoPoint()
     .subscribe( data => {
       this.ads = data;
+      console.table(this.ads);
       this.showSpinners = false;
     });
   }

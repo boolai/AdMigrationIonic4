@@ -9,7 +9,11 @@ import { CategoriesModalPage } from '../categories-modal/categories-modal.page';
 })
 export class MapPage implements OnInit {
 
-  constructor(public modalController:ModalController) { }
+  public lat = 50;
+  public lng = 100;
+  public mapHeight = '25';
+
+  constructor(public modalController: ModalController) { }
 
   ngOnInit() {
   }
@@ -20,6 +24,14 @@ export class MapPage implements OnInit {
       componentProps: { value: 123 }
     });
     return await modal.present();
+  }
+
+  public toogleMapHeight() {
+    if (this.mapHeight === '25') {
+      this.mapHeight = '100';
+    } else {
+      this.mapHeight = '25';
+    }
   }
 
 }

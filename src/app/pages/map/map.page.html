@@ -4,7 +4,7 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-buttons slot="secondary">
-      <ion-button>
+      <ion-button (click)="toogleMapHeight()">
         <ion-icon slot="icon-only" name="resize"></ion-icon>
       </ion-button>
       <ion-button>
@@ -19,6 +19,11 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
+  <div *ngIf="lat && lng">
+    <agm-map [latitude]="lat" [longitude]="lng" [style.height.vh]="mapHeight">
+      <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+    </agm-map>
+  </div>
 
 </ion-content>
