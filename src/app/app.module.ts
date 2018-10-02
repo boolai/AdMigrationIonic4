@@ -27,6 +27,7 @@ import { ApplicationRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { AgmCoreModule } from '@agm/core';
+import { AgmSnazzyInfoWindowModule } from '@agm/snazzy-info-window';
 
 @NgModule({
   declarations: [AppComponent],
@@ -44,8 +45,10 @@ import { AgmCoreModule } from '@agm/core';
     CategoriesModalPageModule,
     GalleryModalPageModule,
     AgmCoreModule.forRoot({
-      apiKey: environment.googleMapKey
-    })
+      apiKey: environment.googleMapKey,
+      libraries: ['places']
+    }),
+    AgmSnazzyInfoWindowModule
   ],
   providers: [
     StatusBar,

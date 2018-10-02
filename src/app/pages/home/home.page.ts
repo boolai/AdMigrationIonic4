@@ -31,12 +31,23 @@ export class HomePage implements OnDestroy, OnInit, AfterViewInit {
   ngOnInit() {}
 
   ngAfterViewInit() {
-    this.adSub = this.db.getAdsViaGeoPoint()
-    .subscribe( data => {
-      this.ads = data;
-      console.table(this.ads);
-      this.showSpinners = false;
-    });
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(position => {
+
+        this.db.setLat(position.coords.latitude);
+        this.db.setLng(position.coords.longitude);
+        this.db.setCenterPoint();
+        // this.getCoordinatesToName(this.lat, this.lng);
+        this.adSub = this.db.queryDataWithCat().subscribe( () => {
+          this.showSpinners = false;
+        });
+      });
+    } else {
+      this.db.queryDataWithCat();
+      this.adSub = this.db.ads.subscribe( () => {
+        this.showSpinners = false;
+      });
+    }
   }
 
   async presentCatModal() {

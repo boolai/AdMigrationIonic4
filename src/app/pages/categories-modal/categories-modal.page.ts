@@ -9,12 +9,12 @@ import { ModalController } from '@ionic/angular';
 })
 export class CategoriesModalPage implements OnInit, OnDestroy {
 
-  public dbRef:DatabaseService;
-  public cats:any;
-  public sub:any;
-  private modalCtrlRef:ModalController;
+  public dbRef: DatabaseService;
+  public cats: any;
+  public sub: any;
+  private modalCtrlRef: ModalController;
 
-  constructor(db:DatabaseService, modalCtrl:ModalController) {
+  constructor(db: DatabaseService, modalCtrl: ModalController) {
     this.dbRef = db;
     this.modalCtrlRef = modalCtrl;
    }
@@ -26,10 +26,10 @@ export class CategoriesModalPage implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    //this.sub.unsubcribe();
+    
   }
 
-  public switchCat(cat:any) {
+  public switchCat(cat: any) {
     this.dbRef.switchCategory(cat);
     console.log(cat);
     this.closeModal();
@@ -37,6 +37,14 @@ export class CategoriesModalPage implements OnInit, OnDestroy {
 
   public closeModal() {
     this.modalCtrlRef.dismiss();
+  }
+
+  public toogleEndPoint() {
+    this.dbRef.toogleEndPoints();
+  }
+
+  public increaseRadius() {
+    this.dbRef.incrementRadius();
   }
 
 }

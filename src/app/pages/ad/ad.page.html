@@ -19,7 +19,7 @@
 <ion-content>
   <br />
 
-  <div class="spinner" *ngIf="db.showSpinners == true">
+  <div class="spinner" *ngIf="showSpinners == true">
     <div class="rect1"></div>
     <div class="rect2"></div>
     <div class="rect3"></div>
@@ -27,7 +27,7 @@
     <div class="rect5"></div>
   </div>
 
-  <div *ngIf="db.showSpinners == false">
+  <div *ngIf="showSpinners == false">
     <section class="contactInfo">
       <div class="container" text-center>
         <img src="{{ad?.photos[0].url}}">
@@ -53,7 +53,7 @@
               </ion-col>
             </ion-row>
             <ion-row text-left>
-              <ion-col (click)="openWebLink(ad.website)">
+              <ion-col (click)="openWebLink(ad?.website)">
                 <ion-icon name="globe" style="font-size: 1.5em;"></ion-icon> <span style="font-size: .5em;">{{ad?.website}}</span>
               </ion-col>
             </ion-row>

@@ -20,6 +20,7 @@ export class AdPage implements OnInit, OnDestroy {
   private uid: string;
   private sub: any;
   private ad: any;
+  private showSpinners = true;
 
   constructor(public router: Router,
     public actionSheetController: ActionSheetController,
@@ -32,13 +33,13 @@ export class AdPage implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.db.showSpinners = true;
+    this.showSpinners = true;
     this.sub = this.route.params.subscribe(params => {
       this.uid = params['id']; // (+) converts string 'id' to a number
       this.db.getAd(this.uid).subscribe(data => {
         this.ad = data;
         console.log(data);
-        this.db.showSpinners = false;
+        this.showSpinners = false;
       });
       // In a real app: dispatch action to load the details here.
     });

@@ -21,13 +21,13 @@
     <div class="rect4"></div>
     <div class="rect5"></div>
   </div>
-
-  <div *ngIf="showSpinners == false">
-    <ion-card *ngFor="let ad of ads" (click)="goToPage(ad)">
+  <div>
+    <ion-card *ngFor="let ad of db.query | async" (click)="goToPage(ad)">
       <ion-img src="{{ad.photos[0].url}}"></ion-img>
       <ion-card-content>
-        <ion-card-title>{{ad.title}}</ion-card-title>
-        <p>{{ad.city}}</p>
+        <ion-card-title>{{ad?.title}}</ion-card-title>
+        <p>{{ad?.city}} <small style="color:lightgrey;">{{ad?.cat2}}</small></p>
+        <p>{{ad?.email}}</p>
       </ion-card-content>
     </ion-card>
   </div>

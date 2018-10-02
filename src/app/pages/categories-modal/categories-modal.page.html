@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar color="dark">
-      <ion-title slot="start">Categories</ion-title>
+    <ion-title slot="start">{{this.dbRef?.currentEndPoint}} {{dbRef?.currentCategory.title}}</ion-title>
     <ion-buttons slot="primary">
       <ion-button color="danger" (click)="closeModal()">
         <ion-icon slot="icon-only" name="close-circle"></ion-icon>
@@ -10,13 +10,14 @@
 </ion-header>
 
 <ion-content>
+  <ion-toolbar color="dark">
+    <ion-button (click)="toogleEndPoint()" slot="secondary" color="light" size="small">{{this.dbRef?.currentEndPoint}}</ion-button>
+    <ion-button (click)="increaseRadius()" color="light" size="small">
+      <ion-badge color="medium">{{dbRef?.radius.value}} Rad</ion-badge>
+    </ion-button>
+  </ion-toolbar>
   <ion-list>
     <ion-item *ngFor="let cat of cats;">
-      <!--
-      <ion-avatar slot="start">
-        <img src="/docs/assets/img/avatar-finn.png"></img>
-      </ion-avatar>
-    -->
       <ion-label>
         <h2 text-center (click)="switchCat(cat)">{{cat.title}}</h2>
       </ion-label>

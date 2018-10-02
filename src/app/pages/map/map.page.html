@@ -3,12 +3,35 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
+    <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="lat && lng">
+    <agm-map [latitude]="51.673858" [longitude]="7.815982" [style.height.vh]="mapHeight">
+      
+
+      <agm-marker [latitude]="51.673858" [longitude]="7.815982">
+        <agm-snazzy-info-window [maxWidth]="200" [closeWhenOthersOpen]="true">
+          <ng-template>
+            My first Snazzy Info Window!
+          </ng-template>
+        </agm-snazzy-info-window>
+      </agm-marker>
+    </agm-map>
+  </div>
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar color="dark">
     <ion-buttons slot="secondary">
       <ion-button (click)="toogleMapHeight()">
         <ion-icon slot="icon-only" name="resize"></ion-icon>
       </ion-button>
-      <ion-button>
-        <ion-badge color="medium">88 Radius</ion-badge>
+      <ion-button (click)="increaseRadius()">
+        <ion-badge color="medium">{{db.radius.value}} Rad</ion-badge>
       </ion-button>
     </ion-buttons>
     <ion-buttons slot="primary">
@@ -17,13 +40,4 @@
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
-</ion-header>
-
-<ion-content>
-  <div *ngIf="lat && lng">
-    <agm-map [latitude]="lat" [longitude]="lng" [style.height.vh]="mapHeight">
-      <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
-    </agm-map>
-  </div>
-
-</ion-content>
+</ion-footer>

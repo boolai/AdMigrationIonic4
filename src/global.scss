@@ -147,3 +147,13 @@ a {
       -webkit-transform: scaleY(1.0);
     }
   }
+
+  ion-card-content {
+    background-color: black;
+    color:white;
+    padding: 5px !important;
+  }
+
+  ion-card-title{
+    color: white;
+  }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController, NavController } from '@ionic/angular';
 import { CategoriesModalPage } from '../categories-modal/categories-modal.page';
+import { DatabaseService } from '../../services/database.service';
 
 @Component({
   selector: 'app-map',
@@ -13,7 +14,8 @@ export class MapPage implements OnInit {
   public lng = 100;
   public mapHeight = '25';
 
-  constructor(public modalController: ModalController) { }
+  constructor(public modalController: ModalController,
+  public db: DatabaseService) { }
 
   ngOnInit() {
   }
@@ -28,10 +30,14 @@ export class MapPage implements OnInit {
 
   public toogleMapHeight() {
     if (this.mapHeight === '25') {
-      this.mapHeight = '100';
+      this.mapHeight = '85';
     } else {
       this.mapHeight = '25';
     }
+  }
+
+  public increaseRadius() {
+    this.db.incrementRadius();
   }
 
 }
