@@ -65,6 +65,7 @@
     "@ionic/lab": "1.0.9",
     "@ionic/ng-toolkit": "^1.0.0",
     "@ionic/schematics-angular": "^1.0.0",
+    "@types/googlemaps": "^3.30.13",
     "@types/jasmine": "~2.8.6",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "~10.9.2",

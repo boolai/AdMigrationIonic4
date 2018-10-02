@@ -150,6 +150,7 @@ export class DatabaseService implements OnDestroy, OnInit {
 
   public queryDataWithCat() {
 
+    this.center = this.geo.point(this.lat, this.lng);
     if (this.pageLimit > this.pageMax || this.pageLimit < 0) {
       this.pageLimit = this.pageMin;
     }

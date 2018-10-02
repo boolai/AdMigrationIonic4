@@ -26,7 +26,6 @@ export class CategoriesModalPage implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    
   }
 
   public switchCat(cat: any) {

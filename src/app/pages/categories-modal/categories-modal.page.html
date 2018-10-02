@@ -13,7 +13,7 @@
   <ion-toolbar color="dark">
     <ion-button (click)="toogleEndPoint()" slot="secondary" color="light" size="small">{{this.dbRef?.currentEndPoint}}</ion-button>
     <ion-button (click)="increaseRadius()" color="light" size="small">
-      <ion-badge color="medium">{{dbRef?.radius.value}} Rad</ion-badge>
+      {{dbRef?.radius.value}} Radius
     </ion-button>
   </ion-toolbar>
   <ion-list>
