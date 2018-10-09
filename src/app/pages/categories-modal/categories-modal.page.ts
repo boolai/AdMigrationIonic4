@@ -13,6 +13,7 @@ export class CategoriesModalPage implements OnInit, OnDestroy {
   public cats: any;
   public sub: any;
   private modalCtrlRef: ModalController;
+  isLatest;
 
   constructor(db: DatabaseService, modalCtrl: ModalController) {
     this.dbRef = db;
@@ -23,13 +24,14 @@ export class CategoriesModalPage implements OnInit, OnDestroy {
     this.sub = this.dbRef.getCategories().subscribe( data => {
       this.cats = data;
     });
+    console.log(`${this.isLatest}`);
   }
 
   ngOnDestroy() {
   }
 
   public switchCat(cat: any) {
-    this.dbRef.switchCategory(cat);
+    this.dbRef.switchCategory(cat, this.isLatest);
     console.log(cat);
     this.closeModal();
   }
@@ -39,6 +41,7 @@ export class CategoriesModalPage implements OnInit, OnDestroy {
   }
 
   public toogleEndPoint() {
+    this.dbRef.isLatest = this.isLatest;
     this.dbRef.toogleEndPoints();
   }
 

@@ -3,22 +3,47 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+    <div class="form-group">
+      <input placeholder="{{place?.formatted_address}}" autocorrect="off" autocapitalize="off" spellcheck="off" type="text"
+        class="form-control" #search [formControl]="searchControl">
+    </div>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div *ngIf="lat && lng">
-    <agm-map [latitude]="51.673858" [longitude]="7.815982" [style.height.vh]="mapHeight">
-      
-
-      <agm-marker [latitude]="51.673858" [longitude]="7.815982">
+  <div *ngIf="db.lat && db.lng">
+    <agm-map [latitude]="db.lat" [longitude]="db.lng" [style.height.vh]="mapHeight" [styles]="styles">
+      <agm-marker [latitude]="db.lng" [longitude]="db.lng">
         <agm-snazzy-info-window [maxWidth]="200" [closeWhenOthersOpen]="true">
           <ng-template>
             My first Snazzy Info Window!
           </ng-template>
         </agm-snazzy-info-window>
       </agm-marker>
+
+      <agm-marker *ngFor="let ad of db.query | async" [latitude]="ad?.position.geopoint.latitude" [longitude]="ad?.position.geopoint.longitude">
+
+          <agm-snazzy-info-window [maxWidth]="400" [maxHeight]="600" [closeWhenOthersOpen]="true">
+            <ng-template>
+              <div class="info-box-wrap">
+  
+                <div class="info-box-text-wrap">
+                  <h3 (click)="goToPage(ad)" text-center>{{ad?.title}}</h3>
+                  <p>
+                    <img src="{{ad?.photos[0].url}}" style="padding: 0 15px; float: left; max-width: 200px; max-height: 400px; padding-left: 0px;" (click)="goToPage(ad)" />
+                  </p>
+                  <p style="margin-top: 20px;">
+                    {{ad?.cat2}}
+                    <a href="mailto:{{ad?.email}}?subject=From LustyLuv.com" target="_blank" class="linkBlack">{{ad?.email}}</a>
+                    <br />
+                    <a href="tel:{{ad?.phone}}" class="linkBlack">{{ad?.phone}}</a>
+                    <br/> {{ad?.description}}
+                  </p>
+                </div>
+              </div>
+            </ng-template>
+          </agm-snazzy-info-window>
+        </agm-marker>
     </agm-map>
   </div>
 

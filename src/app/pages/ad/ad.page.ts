@@ -20,6 +20,7 @@ export class AdPage implements OnInit, OnDestroy {
   private uid: string;
   private sub: any;
   private ad: any;
+  private adSub: any;
   private showSpinners = true;
 
   constructor(public router: Router,
@@ -36,7 +37,7 @@ export class AdPage implements OnInit, OnDestroy {
     this.showSpinners = true;
     this.sub = this.route.params.subscribe(params => {
       this.uid = params['id']; // (+) converts string 'id' to a number
-      this.db.getAd(this.uid).subscribe(data => {
+      this.adSub = this.db.getAd(this.uid).subscribe(data => {
         this.ad = data;
         console.log(data);
         this.showSpinners = false;
@@ -47,6 +48,7 @@ export class AdPage implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.sub.unsubscribe();
+    this.adSub.unsubscribe();
   }
 
   public goBack() {

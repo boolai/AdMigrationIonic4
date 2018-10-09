@@ -42,28 +42,11 @@ export class HomePage implements OnDestroy, OnInit, AfterViewInit {
   ngOnInit() {
 
     this.searchControl = new FormControl();
-    this.mapsAPILoader.load().then(() => {
-      const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
-        types: ['address']
-      });
-      autocomplete.addListener('place_changed', () => {
-        this.ngZone.run(() => {
-          // get the place result
-          this.place = google.maps.places.PlaceResult = autocomplete.getPlace();
-
-          // verify result
-          if (this.place.geometry === undefined || this.place.geometry === null) {
-            return;
-          }
-
-          console.log(this.place);
-          // set latitude, longitude and zoom
-          this.db.setLat(this.place.geometry.location.lat());
-          this.db.setLng(this.place.geometry.location.lng());
-          this.db.queryDataWithCat();
-        });
-      });
+    /*
+    this.adSub = this.db.queryDataWithCat().subscribe( () => {
+      this.showSpinners = false;
     });
+    */
   }
 
   ngAfterViewInit() {
@@ -79,8 +62,7 @@ export class HomePage implements OnDestroy, OnInit, AfterViewInit {
         });
       });
     } else {
-      this.db.queryDataWithCat();
-      this.adSub = this.db.ads.subscribe( () => {
+      this.adSub = this.db.queryDataWithCat().subscribe( () => {
         this.showSpinners = false;
       });
     }
@@ -89,13 +71,13 @@ export class HomePage implements OnDestroy, OnInit, AfterViewInit {
   async presentCatModal() {
     const modal = await this.modalController.create({
       component: CategoriesModalPage,
-      componentProps: { value: 123 }
+      componentProps: { isLatest: false }
     });
     return await modal.present();
   }
 
   ngOnDestroy() {
-    this.adSub.unsubscribe();
+    // this.adSub.unsubscribe();
   }
 
   public goToPage(ad: any) {

@@ -12,7 +12,7 @@
       </ion-button>
     </ion-buttons>
     <ion-buttons slot="primary">
-      <ion-button color="danger" (click)="presentActionSheet()">
+      <ion-button color="danger" (click)="presentCatModal()">
         <ion-icon slot="icon-only" name="more"></ion-icon>
       </ion-button>
     </ion-buttons>
@@ -20,5 +20,12 @@
 </ion-header>
 
 <ion-content>
-
+  <ion-card *ngFor="let ad of db.adsLatestObs | async" (click)="goToPage(ad)">
+    <ion-img src="{{ad.photos[0].url}}"></ion-img>
+    <ion-card-content>
+      <ion-card-title>{{ad?.title}}</ion-card-title>
+      <p>{{ad?.city}} <small style="color:lightgrey;">{{ad?.cat2}}</small></p>
+      <p>{{ad?.email}}</p>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

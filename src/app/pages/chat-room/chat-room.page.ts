@@ -54,8 +54,6 @@ export class ChatRoomPage implements OnInit, OnDestroy {
             console.log(data);
           });
 
-        this.ads = this.db.getAds();
-
       } else {
         // Send alert and re route
         this.presentAlert('Error', 'Room does not exist');

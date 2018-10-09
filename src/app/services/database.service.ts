@@ -19,11 +19,12 @@ export class DatabaseService implements OnDestroy, OnInit {
   private liveEndPoint = 'Adverts';
   private altEndPoint = 'AdvertsDemo';
 
-  private adsObs: Observable<any>;
+  public adsObs: Observable<any>;
+  public adsLatestObs: Observable<any>;
   private dbRef: AngularFirestore;
 
   private adDoc: AngularFirestoreDocument<any>;
-  private adObs: Observable<any>;
+  public adObs: Observable<any>;
 
   public appSettings: any;
 
@@ -57,7 +58,10 @@ export class DatabaseService implements OnDestroy, OnInit {
   // Query Stuff
   public query: Observable<any>;
   public ads: any;
-  private adsCollection: any;
+  public adsCollection: any;
+  public adsLatestCollection: any;
+
+  public isLatest = false;
 
   constructor(db: AngularFirestore) {
     this.dbRef = db;
@@ -98,26 +102,6 @@ export class DatabaseService implements OnDestroy, OnInit {
     return this.adObs = this.adDoc.valueChanges();
   }
 
-  public getAds() {
-    this.adsObs = this.dbRef.collection(this.currentEndPoint).valueChanges();
-    return this.adsObs;
-  }
-
-  public getAdsViaGeoPoint() {
-
-    this.adsCollection = this
-      .geo
-      .collection(this.currentEndPoint, ref => ref.where('status', '==', 'active').where('cat1', '==', 'all').limit(50));
-
-    this.query = this.radius.pipe(
-      switchMap(r => {
-        // console.log("Im hitting the p " + r);
-        return this.adsCollection.within(this.center, r, this.field);
-      })
-    );
-    return this.query;
-  }
-
   public getCategories() {
     this.categoryObs = this
       .dbRef
@@ -125,9 +109,13 @@ export class DatabaseService implements OnDestroy, OnInit {
     return this.categoryObs;
   }
 
-  public switchCategory(cat: any) {
+  public switchCategory(cat: any, isLatest: boolean) {
     this.currentCategory = cat;
-    this.queryDataWithCat();
+    if (isLatest === false) {
+      this.queryDataWithCat();
+    } else {
+      this.getLatestWithCat();
+    }
   }
 
   public queryAppSettings() {
@@ -146,6 +134,14 @@ export class DatabaseService implements OnDestroy, OnInit {
     const collection = this.dbRef.collection(path);
     data['createAt'] = firebase.firestore.FieldValue.serverTimestamp();
     return collection.add(data);
+  }
+
+  public getLatestWithCat() {
+    this.adsLatestCollection = this
+    .dbRef
+    .collection(this.currentEndPoint, ref => ref.orderBy('timestamp', 'desc')
+    .where(this.currentCategory.operator, '==', this.currentCategory.operand));
+    return this.adsLatestObs = this.adsLatestCollection.valueChanges();
   }
 
   public queryDataWithCat() {
@@ -186,6 +182,10 @@ export class DatabaseService implements OnDestroy, OnInit {
       this.currentEndPoint = this.liveEndPoint;
     }
 
-    this.queryDataWithCat();
+    if (this.isLatest) {
+      this.getLatestWithCat();
+    } else {
+      this.queryDataWithCat();
+    }
   }
 }
