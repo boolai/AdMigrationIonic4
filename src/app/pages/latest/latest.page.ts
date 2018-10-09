@@ -4,6 +4,7 @@ import { ModalController, NavController } from '@ionic/angular';
 import { CategoriesModalPage } from '../categories-modal/categories-modal.page';
 import { Router } from '@angular/router';
 import { ElementRef, NgZone, ViewChild } from '@angular/core';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-latest',
@@ -28,6 +29,7 @@ export class LatestPage implements OnInit, OnDestroy {
   }
 
   public goToPage(ad: any) {
+    console.log(ad);
     this.router.navigateByUrl('/ad/' + ad.id);
   }
 

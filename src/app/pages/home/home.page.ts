@@ -81,6 +81,7 @@ export class HomePage implements OnDestroy, OnInit, AfterViewInit {
   }
 
   public goToPage(ad: any) {
+    console.log(ad);
     this.router.navigateByUrl('/ad/' + ad.id);
   }
 }

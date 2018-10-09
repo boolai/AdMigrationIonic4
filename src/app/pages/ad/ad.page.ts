@@ -9,6 +9,7 @@ import { ModalController } from '@ionic/angular';
 import { GalleryModalPage } from '../gallery-modal/gallery-modal.page';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { AuthService } from '../../services/auth.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-ad',
@@ -30,7 +31,8 @@ export class AdPage implements OnInit, OnDestroy {
     public callNumber: CallNumber,
     private modalCtrl: ModalController,
     private iab: InAppBrowser,
-    public auth: AuthService) {
+    public auth: AuthService,
+    public location: Location) {
   }
 
   ngOnInit() {
@@ -52,7 +54,7 @@ export class AdPage implements OnInit, OnDestroy {
   }
 
   public goBack() {
-    this.router.navigateByUrl('/home');
+    this.location.back();
   }
 
   public goToChat() {

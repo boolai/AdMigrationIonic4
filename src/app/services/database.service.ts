@@ -138,10 +138,16 @@ export class DatabaseService implements OnDestroy, OnInit {
 
   public getLatestWithCat() {
     this.adsLatestCollection = this
-    .dbRef
-    .collection(this.currentEndPoint, ref => ref.orderBy('timestamp', 'desc')
-    .where(this.currentCategory.operator, '==', this.currentCategory.operand));
-    return this.adsLatestObs = this.adsLatestCollection.valueChanges();
+      .dbRef
+      .collection(this.currentEndPoint, ref => ref.orderBy('timestamp', 'desc')
+        .where(this.currentCategory.operator, '==', this.currentCategory.operand));
+    return this.adsLatestObs = this.adsLatestCollection.snapshotChanges().map(actions => {
+      return actions.map(a => {
+        const data = a.payload.doc.data() as any;
+        const id = a.payload.doc.id;
+        return { id, ...data };
+      });
+    });
   }
 
   public queryDataWithCat() {
@@ -154,8 +160,8 @@ export class DatabaseService implements OnDestroy, OnInit {
     this.adsCollection = this
       .geo
       .collection(this.currentEndPoint, ref => ref.where('status', '==', 'active')
-      .where(this.currentCategory.operator, '==', this.currentCategory.operand)
-      .limit(this.pageLimit));
+        .where(this.currentCategory.operator, '==', this.currentCategory.operand)
+        .limit(this.pageLimit));
 
     this.query = this.radius.pipe(
       switchMap(r => {
