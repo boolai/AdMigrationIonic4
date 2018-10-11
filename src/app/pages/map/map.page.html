@@ -8,13 +8,11 @@
         class="form-control" #search [formControl]="searchControl">
     </div>
   </ion-toolbar>
-</ion-header>
-
-<ion-content>
   <div *ngIf="db.lat && db.lng">
     <agm-map [latitude]="db.lat" [longitude]="db.lng" [style.height.vh]="mapHeight" [styles]="styles">
+
       <agm-marker [latitude]="db.lng" [longitude]="db.lng">
-        <agm-snazzy-info-window [maxWidth]="200" [closeWhenOthersOpen]="true">
+        <agm-snazzy-info-window>
           <ng-template>
             My first Snazzy Info Window!
           </ng-template>
@@ -23,29 +21,46 @@
 
       <agm-marker *ngFor="let ad of db.query | async" [latitude]="ad?.position.geopoint.latitude" [longitude]="ad?.position.geopoint.longitude">
 
-          <agm-snazzy-info-window [maxWidth]="400" [maxHeight]="600" [closeWhenOthersOpen]="true">
-            <ng-template>
-              <div class="info-box-wrap">
-  
-                <div class="info-box-text-wrap">
-                  <h3 (click)="goToPage(ad)" text-center>{{ad?.title}}</h3>
-                  <p>
-                    <img src="{{ad?.photos[0].url}}" style="padding: 0 15px; float: left; max-width: 200px; max-height: 400px; padding-left: 0px;" (click)="goToPage(ad)" />
-                  </p>
-                  <p style="margin-top: 20px;">
-                    {{ad?.cat2}}
-                    <a href="mailto:{{ad?.email}}?subject=From LustyLuv.com" target="_blank" class="linkBlack">{{ad?.email}}</a>
-                    <br />
-                    <a href="tel:{{ad?.phone}}" class="linkBlack">{{ad?.phone}}</a>
-                    <br/> {{ad?.description}}
-                  </p>
-                </div>
+        <agm-snazzy-info-window [maxWidth]="400" [maxHeight]="600" [closeWhenOthersOpen]="true">
+          <ng-template>
+            <div class="info-box-wrap">
+
+              <div class="info-box-text-wrap">
+                <h3 (click)="goToPage(ad)" text-center>{{ad?.title}}</h3>
+                <p>
+                  <img src="{{ad?.photos[0].url}}" style="padding: 0 15px; float: left; max-width: 200px; max-height: 400px; padding-left: 0px;"
+                    (click)="goToPage(ad)" />
+                </p>
+                <p style="margin-top: 20px;">
+                  {{ad?.cat2}}
+                  <a href="mailto:{{ad?.email}}?subject=From LustyLuv.com" target="_blank" class="linkBlack">{{ad?.email}}</a>
+                  <br />
+                  <a href="tel:{{ad?.phone}}" class="linkBlack">{{ad?.phone}}</a>
+                  <br /> {{ad?.description}}
+                </p>
               </div>
-            </ng-template>
-          </agm-snazzy-info-window>
-        </agm-marker>
+            </div>
+          </ng-template>
+        </agm-snazzy-info-window>
+      </agm-marker>
+      <agm-circle [latitude]="db.lat" [longitude]="db.lng" [radius]="db.radius.value * 1000" [fillColor]="'grey'"
+        [circleDraggable]="false" [editable]="true" (circleClick)="setMarker($event)">
+      </agm-circle>
     </agm-map>
   </div>
+</ion-header>
+
+<ion-content>
+
+
+  <ion-card *ngFor="let ad of db.query | async" (click)="goToPage(ad)">
+    <ion-img src="{{ad.photos[0].url}}"></ion-img>
+    <ion-card-content>
+      <ion-card-title>{{ad?.title}}</ion-card-title>
+      <p>{{ad?.city}} <small style="color:lightgrey;">{{ad?.cat2}}</small></p>
+      <p>{{ad?.email}}</p>
+    </ion-card-content>
+  </ion-card>
 
 </ion-content>
 

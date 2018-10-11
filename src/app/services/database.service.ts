@@ -42,10 +42,10 @@ export class DatabaseService implements OnDestroy, OnInit {
   private lastEndPoint: any;
 
   // GeoFire Stuff
-  private lat = 40.7128;
-  private lng = -74.0060;
+  public lat = 40.7128;
+  public lng = -74.0060;
   private center = this.geo.point(this.lat, this.lng);
-  private radius = new BehaviorSubject(100);
+  public radius = new BehaviorSubject(100);
   private radiusMin = 10;
   private radiusInc = 2;
   private radiusMax = 1000;

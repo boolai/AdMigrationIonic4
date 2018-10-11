@@ -56,6 +56,28 @@ export class MapPage implements OnInit {
         this.showSpinners = false;
       });
     }
+
+    this.mapsAPILoader.load().then(() => {
+      const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
+      autocomplete.addListener('place_changed', () => {
+        this.ngZone.run(() => {
+          // get the place result
+          const place: google.maps.places.PlaceResult = autocomplete.getPlace();
+
+          // verify result
+          if (place.geometry === undefined || place.geometry === null) {
+            return;
+          }
+
+          // set latitude, longitude and zoom
+          this.db.lat = place.geometry.location.lat();
+          this.db.lng = place.geometry.location.lng();
+          this.db.setCenterPoint();
+          this.db.queryDataWithCat();
+          this.zoom = 12;
+        });
+      });
+    });
   }
 
   private setMapStyle() {
@@ -86,6 +108,14 @@ export class MapPage implements OnInit {
 
   public goToPage(ad: any) {
     this.router.navigateByUrl('/ad/' + ad.id);
+  }
+
+  public setMarker(event) {
+    console.log(event);
+    this.db.lat = event.coords.lat;
+    this.db.lng = event.coords.lng;
+
+    this.db.queryDataWithCat();
   }
 
 }
