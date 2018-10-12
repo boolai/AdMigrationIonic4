@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { DatabaseService } from '../../services/database.service';
 
 @Component({
   selector: 'app-post-ad',
@@ -10,8 +11,11 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 export class PostAdPage implements OnInit {
 
   myForm: FormGroup;
+  cats: any;
 
-  constructor(public location: Location, public fb: FormBuilder) { }
+  constructor(public location: Location,
+    public fb: FormBuilder,
+    public db: DatabaseService) { }
 
   ngOnInit() {
     this.myForm = this.fb.group({
@@ -30,10 +34,14 @@ export class PostAdPage implements OnInit {
       measurements: '',
       weight: '',
       gender: '',
-      city: ''
+      city: '',
+      eyes: '',
+      location: '',
+      category: 'All'
     });
 
     this.myForm.valueChanges.subscribe(console.log);
+    this.cats = this.db.getCategories();
   }
 
   public goBack() {
