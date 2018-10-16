@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { DatabaseService } from '../../services/database.service';
+import { AuthService } from '../../services/auth.service';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-post-ad',
@@ -15,29 +17,35 @@ export class PostAdPage implements OnInit {
 
   constructor(public location: Location,
     public fb: FormBuilder,
-    public db: DatabaseService) { }
+    public db: DatabaseService,
+    public auth: AuthService,
+    public alertController: AlertController) { }
 
   ngOnInit() {
+    console.log('Init');
     this.myForm = this.fb.group({
+      age: '',
+      availability: '',
+      cat1: 'all',
+      cat2: 'all',
+      city: '',
+      description: '',
       email: '',
-      message: '',
-      phone: '555 555 5555',
-      title: '',
-      name: '',
+      ethnicity: '',
+      eyes: '',
+      uid: '',
       website: '',
       twitter: '',
-      isChatOn: false,
-      description: '',
-      age: '',
-      height: '',
-      hair: '',
-      measurements: '',
       weight: '',
       gender: '',
-      city: '',
-      eyes: '',
-      location: '',
-      category: 'All'
+      hair: '',
+      height: '',
+      isChatOn: true,
+      measurements: '',
+      name: '',
+      phone: '555 555 5555',
+      title: '',
+      ethinicty: 'world'
     });
 
     this.myForm.valueChanges.subscribe(console.log);
@@ -46,6 +54,38 @@ export class PostAdPage implements OnInit {
 
   public goBack() {
     this.location.back();
+  }
+
+  public save() {
+
+    if ( this.myForm.valid ) {
+
+      let dat = this.myForm.value;
+      dat['uid'] = this.auth.currentUserId;
+      if ( dat['cat2'] === undefined) {
+        dat['cat2'] = 'all';
+      }
+
+      this.db.updateCollection('Adverts', dat)
+      .then( d => {
+        console.log(d);
+        this.presentAlert();
+        this.myForm.reset();
+      })
+      .catch( error => {
+        console.log(error);
+      });
+    }
+  }
+
+  async presentAlert() {
+    const alert = await this.alertController.create({
+      header: 'Saved',
+      message: 'Your Ad is Saved',
+      buttons: ['OK']
+    });
+
+    await alert.present();
   }
 
 }
