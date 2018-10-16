@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { DatabaseService } from '../../services/database.service';
 import { AuthService } from '../../services/auth.service';
 import { AlertController } from '@ionic/angular';
+import { ActionSheetController } from '@ionic/angular';
 
 @Component({
   selector: 'app-post-ad',
@@ -19,7 +20,9 @@ export class PostAdPage implements OnInit {
     public fb: FormBuilder,
     public db: DatabaseService,
     public auth: AuthService,
-    public alertController: AlertController) { }
+    public alertController: AlertController,
+    public actionSheetController: ActionSheetController) { }
+    
 
   ngOnInit() {
     console.log('Init');
@@ -86,6 +89,43 @@ export class PostAdPage implements OnInit {
     });
 
     await alert.present();
+  }
+
+  async presentActionSheet() {
+    const actionSheet = await this.actionSheetController.create({
+      header: 'Actions',
+      buttons: [
+        {
+          text: 'Save',
+          icon: 'create',
+          handler: () => {
+            console.log('Share clicked');
+            this.save();
+          }
+        }, {
+        text: 'Reset',
+        role: 'destructive',
+        icon: 'trash',
+        handler: () => {
+          console.log('Delete clicked');
+          this.myForm.reset();
+        }
+      }, {
+        text: 'Map',
+        icon: 'globe',
+        handler: () => {
+          console.log('Favorite clicked');
+        }
+      }, {
+        text: 'Cancel',
+        icon: 'close',
+        role: 'cancel',
+        handler: () => {
+          console.log('Cancel clicked');
+        }
+      }]
+    });
+    await actionSheet.present();
   }
 
 }
