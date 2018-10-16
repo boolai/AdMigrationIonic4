@@ -22,10 +22,8 @@ export class PostAdPage implements OnInit {
     public auth: AuthService,
     public alertController: AlertController,
     public actionSheetController: ActionSheetController) { }
-    
 
   ngOnInit() {
-    console.log('Init');
     this.myForm = this.fb.group({
       age: '',
       availability: '',
@@ -63,7 +61,7 @@ export class PostAdPage implements OnInit {
 
     if ( this.myForm.valid ) {
 
-      let dat = this.myForm.value;
+      const dat = this.myForm.value;
       dat['uid'] = this.auth.currentUserId;
       if ( dat['cat2'] === undefined) {
         dat['cat2'] = 'all';
@@ -127,5 +125,4 @@ export class PostAdPage implements OnInit {
     });
     await actionSheet.present();
   }
-
 }
