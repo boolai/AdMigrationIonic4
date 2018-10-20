@@ -58,7 +58,7 @@
               </ion-col>
             </ion-row>
             <ion-row text-left>
-              <ion-col (click)="openWebLink(ad.website)">
+              <ion-col (click)="openWebLink(ad?.website)">
                 <ion-icon name="logo-twitter" style="font-size: 1.5em;"></ion-icon> <span style="font-size: .5em;">{{ad?.twitter}}</span>
               </ion-col>
             </ion-row>
@@ -78,7 +78,7 @@
     <section class="photos">
       <ion-slides pager="true" [options]="slideOpts">
         <ion-slide *ngFor="let p of ad?.photos" (click)="openGallery(p)">
-          <ion-img [src]="p.url"></ion-img>
+          <ion-img [src]="p?.url"></ion-img>
         </ion-slide>
       </ion-slides>
     </section>
@@ -93,7 +93,7 @@
             <h3>{{ad?.name}}</h3>
           </ion-label>
           <ion-avatar slot="end">
-            <img src="{{ad?.photos[1].url}}" />
+            <img src="{{ad?.photos[1]?.url}}" />
           </ion-avatar>
         </ion-item>
         <ion-item>
