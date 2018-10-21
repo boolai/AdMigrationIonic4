@@ -194,4 +194,12 @@ export class DatabaseService implements OnDestroy, OnInit {
       this.queryDataWithCat();
     }
   }
+
+  public GetMyAds(uid: string) {
+    const collection = this
+    .dbRef
+    .collection(this.currentEndPoint, ref => ref.orderBy('timestamp', 'desc')
+      .where('uid', '==', uid));
+    return collection.valueChanges();
+  }
 }
