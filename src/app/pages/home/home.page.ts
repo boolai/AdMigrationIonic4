@@ -8,6 +8,7 @@ import { FormControl } from '@angular/forms';
 import { Slides } from '@ionic/angular';
 /// <reference types="@types/googlemaps" />
 import { MapsAPILoader } from '@agm/core';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
 
 @Component({
   selector: 'app-home',
@@ -35,7 +36,8 @@ export class HomePage implements OnDestroy, OnInit, AfterViewInit {
      public navCtrl: NavController,
      public router: Router,
      private mapsAPILoader: MapsAPILoader,
-     private ngZone: NgZone) {
+     private ngZone: NgZone,
+     public geo: Geolocation) {
 
   }
 
@@ -50,17 +52,23 @@ export class HomePage implements OnDestroy, OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(position => {
 
-        this.db.setLat(position.coords.latitude);
-        this.db.setLng(position.coords.longitude);
+    if (this.geo) {
+      this.geo.getCurrentPosition().then((resp) => {
+        // resp.coords.latitude
+        // resp.coords.longitude
+        this.db.setLat(resp.coords.latitude);
+        this.db.setLng(resp.coords.longitude);
         this.db.setCenterPoint();
+        this.showSpinners = false;
         // this.getCoordinatesToName(this.lat, this.lng);
         this.adSub = this.db.queryDataWithCat().subscribe( () => {
-          this.showSpinners = false;
+          console.log('All Done!');
         });
-      });
+       }).catch((error) => {
+         console.log('Error getting location', error);
+         console.log('Sucks');
+       });
     } else {
       this.adSub = this.db.queryDataWithCat().subscribe( () => {
         this.showSpinners = false;

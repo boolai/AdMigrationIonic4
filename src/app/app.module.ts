@@ -25,6 +25,7 @@ import { CallNumber } from '@ionic-native/call-number/ngx';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { ApplicationRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
 
 import { AgmCoreModule } from '@agm/core';
 import { AgmSnazzyInfoWindowModule } from '@agm/snazzy-info-window';
@@ -57,7 +58,8 @@ import { AgmSnazzyInfoWindowModule } from '@agm/snazzy-info-window';
     GooglePlus,
     CallNumber,
     InAppBrowser,
-    Facebook
+    Facebook,
+    Geolocation
   ],
   bootstrap: [AppComponent]
 })
