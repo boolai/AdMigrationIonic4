@@ -197,9 +197,15 @@ export class DatabaseService implements OnDestroy, OnInit {
 
   public GetMyAds(uid: string) {
     const collection = this
-    .dbRef
-    .collection(this.currentEndPoint, ref => ref.orderBy('timestamp', 'desc')
-      .where('uid', '==', uid));
-    return collection.valueChanges();
+      .dbRef
+      .collection(this.currentEndPoint, ref => ref.orderBy('timestamp', 'desc')
+        .where('uid', '==', uid));
+    return collection.snapshotChanges().map(actions => {
+      return actions.map(a => {
+        const data = a.payload.doc.data() as any;
+        const id = a.payload.doc.id;
+        return { id, ...data };
+      });
+    });
   }
 }

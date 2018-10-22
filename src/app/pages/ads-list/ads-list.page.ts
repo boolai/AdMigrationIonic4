@@ -3,6 +3,8 @@ import { Location } from '@angular/common';
 import { DatabaseService } from '../../services/database.service';
 import { AuthService } from '../../services/auth.service';
 import { ActionSheetController } from '@ionic/angular';
+import { NavController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-ads-list',
@@ -17,7 +19,8 @@ export class AdsListPage implements OnInit {
   constructor(public location: Location,
   public db: DatabaseService,
   public auth: AuthService,
-  public actionSheetController: ActionSheetController) {}
+  public actionSheetController: ActionSheetController,
+  public router: Router) {}
 
   ngOnInit() {
     this.db.GetMyAds(this.auth.currentUserId).subscribe( data => {
@@ -40,7 +43,6 @@ export class AdsListPage implements OnInit {
         icon: 'call',
         handler: () => {
           console.log('Call clicked');
-          
         }
       }, {
         text: 'this.ad.email',
@@ -54,8 +56,6 @@ export class AdsListPage implements OnInit {
         icon: 'globe',
         handler: () => {
           console.log('Email clicked');
-        
-          browser.show();
         }
       },
       {
@@ -91,5 +91,10 @@ export class AdsListPage implements OnInit {
       }]
     });
     await actionSheet.present();
+  }
+
+  public goToPage(ad: any) {
+    console.log(ad);
+    this.router.navigateByUrl('/editAd/' + ad.id);
   }
 }

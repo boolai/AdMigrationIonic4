@@ -33,7 +33,8 @@ const routes: Routes = [
   { path: 'suggestions', loadChildren: './pages/suggestions/suggestions.module#SuggestionsPageModule' },
   { path: 'legal', loadChildren: './pages/legal/legal.module#LegalPageModule' },
   { path: 'postAd', loadChildren: './pages/post-ad/post-ad.module#PostAdPageModule', canActivate: [SubscriptionGuard] },
-  { path: 'editAd', loadChildren: './pages/edit-ad/edit-ad.module#EditAdPageModule' }
+  { path: 'editAd', loadChildren: './pages/edit-ad/edit-ad.module#EditAdPageModule' },
+  { path: 'editAd/:id', loadChildren: './pages/edit-ad/edit-ad.module#EditAdPageModule' }
 ];
 
 @NgModule({
