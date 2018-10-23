@@ -38,7 +38,7 @@
                 <h1>{{ad?.name}}</h1>
               </ion-col>
             </ion-row>
-            <ion-row text-left>
+            <ion-row text-center>
               <ion-col>
                 <a href="tel:{{ad?.phone}}">
                   <span>
@@ -46,18 +46,20 @@
                   </span>
                 </a>
               </ion-col>
+            </ion-row>
+            <ion-row text-center>
               <ion-col>
                 <a href="mailto:{{ad?.email}}?subject=LustyLuv">
                   <ion-icon name="mail"></ion-icon> {{ad?.email}}
                 </a>
               </ion-col>
             </ion-row>
-            <ion-row text-left>
+            <ion-row text-center>
               <ion-col (click)="openWebLink(ad?.website)">
                 <ion-icon name="globe" style="font-size: 1.5em;"></ion-icon> <span style="font-size: .5em;">{{ad?.website}}</span>
               </ion-col>
             </ion-row>
-            <ion-row text-left>
+            <ion-row text-center>
               <ion-col (click)="openWebLink(ad?.website)">
                 <ion-icon name="logo-twitter" style="font-size: 1.5em;"></ion-icon> <span style="font-size: .5em;">{{ad?.twitter}}</span>
               </ion-col>

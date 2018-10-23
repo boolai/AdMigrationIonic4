@@ -9,15 +9,26 @@
     </div>
   </ion-toolbar>
   <div *ngIf="db.lat && db.lng">
-    <agm-map [latitude]="db.lat" [longitude]="db.lng" [style.height.vh]="mapHeight" [styles]="styles">
+    <agm-map [latitude]="db.lat" [longitude]="db.lng" [style.height.vh]="mapHeight" [styles]="styles" (mapClick)="setMarker($event)">
 
-      <agm-marker [latitude]="db.lng" [longitude]="db.lng">
-        <agm-snazzy-info-window>
-          <ng-template>
-            My first Snazzy Info Window!
-          </ng-template>
-        </agm-snazzy-info-window>
-      </agm-marker>
+        <agm-marker [latitude]="db.lat" [longitude]="db.lng">
+
+            <agm-snazzy-info-window [maxWidth]="400" [closeWhenOthersOpen]="true">
+              <ng-template>
+                <div class="info-box-wrap">
+    
+                  <div class="info-box-text-wrap">
+                    <h3 (click)="goToPage('AdPage', ad)">You are here.</h3>
+                    <p>{{db.lat}} {{db.lng}}</p>
+                    <p>{{address}}</p>
+                    <img *ngFor="let photo of googlePhotos" src="photo">
+                    <!--<div [innerHTML]="yourHtmlData"></div>-->
+                  </div>
+                </div>
+              </ng-template>
+            </agm-snazzy-info-window>
+    
+          </agm-marker>
 
       <agm-marker *ngFor="let ad of db.query | async" [latitude]="ad?.position.geopoint.latitude" [longitude]="ad?.position.geopoint.longitude">
 

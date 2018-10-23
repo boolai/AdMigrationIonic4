@@ -7,6 +7,11 @@
       Profile
     </ion-title>
     <ion-buttons slot="primary">
+      <ion-button (click)="goBack()">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="primary">
       <ion-button color="danger" (click)="presentCatModal()">
         <ion-icon slot="icon-only" name="more"></ion-icon>
       </ion-button>

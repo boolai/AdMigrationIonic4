@@ -8,6 +8,7 @@ import { ActionSheetController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 
+
 @Component({
   selector: 'app-edit-ad',
   templateUrl: './edit-ad.page.html',
@@ -61,35 +62,38 @@ export class EditAdPage implements OnInit {
       this.uid = params['id']; // (+) converts string 'id' to a number
       this.db.getAd(this.uid).subscribe(data => {
         this.ad = data;
-        console.log(data);
         this.myForm.setValue({
-          age: this.ad.age,
-          availability: this.ad.availability,
-          cat1: this.ad.cat1,
-          cat2: this.ad.cat2,
-          city: '',
-          description: this.ad.description,
-          email: this.ad.email,
-          ethnicity: this.ad.ethnicity,
-          eyes: this.ad.eyes,
-          uid: this.ad.uid,
-          website: this.ad.website,
-          twitter: this.ad.twitter,
-          weight: this.ad.weight,
-          gender: this.ad.gender,
-          hair: this.ad.hair,
-          height: this.ad.height,
-          isChatOn: this.ad.isChatOn,
-          measurements: this.ad.measurements,
-          name: this.ad.name,
-          phone: this.ad.phone,
-          title: this.ad.title
+          age: (this.ad.age) ? this.ad.age : '18',
+          availability: (this.ad.availability) ? this.ad.availability : '' ,
+          cat1: (this.ad.cat1) ? this.ad.cat1 : 'All',
+          cat2: (this.ad.cat2) ? this.ad.cat2 : 'All' ,
+          city: (this.ad.city) ? this.ad.city : 'Bronx',
+          description: (this.ad.description) ? this.ad.description : 'My description',
+          email: (this.ad.email) ? this.ad.email : 'email@email.com',
+          ethnicity: (this.ad.ethnicity) ? this.ad.ethnicity : 'Latino',
+          eyes: (this.ad.eyes) ? this.ad.eyes : 'Brown',
+          uid: (this.ad.uid) ? this.ad.uid : this.auth.currentUserId,
+          website: (this.ad.website) ? this.ad.website : 'www.lustyluv.com',
+          twitter: (this.ad.twitter) ? this.ad.twitter : 'www.lustyluv.com',
+          weight: (this.ad.weight) ? this.ad.weight : '99 pounds' ,
+          gender: (this.ad.gender) ? this.ad.gender : 'male',
+          hair: (this.ad.hair) ? this.ad.hair : 'Brown',
+          height: (this.ad.height) ? this.ad.height : '58',
+          isChatOn: (this.ad.isChatOn) ? this.ad.isChatOn : true,
+          measurements: (this.ad.measurements) ? this.ad.measurements : '38 dd ',
+          name: (this.ad.name) ? this.ad.name : 'LustyLuv',
+          phone: (this.ad.phone) ? this.ad.phone : '555 555 5555',
+          title: (this.ad.title) ? this.ad.title : 'LustyLuv Ad'
 
         });
 
       });
       // In a real app: dispatch action to load the details here.
     });
+  }
+
+  public goBack() {
+    this.location.back();
   }
 
 }

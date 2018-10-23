@@ -19,6 +19,8 @@ export class MapPage implements OnInit {
   public lng = 100;
   public mapHeight = '25';
   public styles: any;
+  public address: any;
+  public googlePhotos: any[] = new Array();
 
   @ViewChild('search')
   public searchElementRef: ElementRef;
@@ -67,6 +69,13 @@ export class MapPage implements OnInit {
           // verify result
           if (place.geometry === undefined || place.geometry === null) {
             return;
+          }
+
+          console.log('***********');
+          console.log(place);
+          this.address = place.formatted_address;
+          for (let i = 0; i < place.photos.length; ++i) {
+            this.googlePhotos.push(place.photos[i].getUrl({'maxWidth': 100, 'maxHeight': 100}));
           }
 
           // set latitude, longitude and zoom
