@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { DatabaseService } from '../../services/database.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-chat-client',
@@ -10,13 +11,14 @@ import { DatabaseService } from '../../services/database.service';
 })
 export class ChatClientPage implements OnInit {
 
-  public ad:any;
-  public adId:any;
-  public sub:any;
+  public ad: any;
+  public adId: any;
+  public sub: any;
 
   constructor(public router: Router,
     public route: ActivatedRoute,
-    public db:DatabaseService) { }
+    public db: DatabaseService,
+    public location: Location) { }
 
   ngOnInit() {
 
@@ -32,7 +34,9 @@ export class ChatClientPage implements OnInit {
   }
 
   public goBack() {
-    this.router.navigateByUrl('/ad/' + this.adId);
+    this.location.back();
   }
+
+  
 
 }

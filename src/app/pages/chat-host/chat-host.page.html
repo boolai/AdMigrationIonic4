@@ -1,9 +1,47 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>chatHost</ion-title>
+  <ion-toolbar color="dark">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Private Chat List
+    </ion-title>
+    <ion-buttons slot="primary">
+      <ion-button (click)="goBack()">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="primary">
+      <ion-button color="danger" (click)="presentCatModal()">
+        <ion-icon slot="icon-only" name="more"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
-
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let chat of chats | async" class="chat" [ngClass]="{'chat-partner' : isChatPartner(chat)}">
+      <ion-avatar>
+        <img src="{{chat?.photoUrl}}">
+      </ion-avatar>
+      <ion-label>
+        <h3>Name: {{chat?.userName}}</h3>
+        <p><b>time: {{chat?.createdAt?.seconds * 1000 | date:'short'}}</b> <br />{{chat?.text}}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
 </ion-content>
+
+<ion-footer>
+    <ion-toolbar color="dark">
+      <form [formGroup]="chatForm" (ngSubmit)="postChat()">
+        <ion-textarea rows='2' placeholder="Your message here." id="message" formControlName="message" (keyup.enter)="postChat()"></ion-textarea>
+        <ion-buttons slot="primary">
+          <ion-button color="danger" type="submit" [disabled]="!chatForm.valid">
+            <ion-icon slot="icon-only" name="microphone"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </form>
+    </ion-toolbar>
+  </ion-footer>

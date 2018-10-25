@@ -208,4 +208,18 @@ export class DatabaseService implements OnDestroy, OnInit {
       });
     });
   }
+
+  public GetMyAnymmousChatsList(uid: string) {
+    const collection = this
+    .dbRef
+    .collection('ChatRooms/' + uid + '/rooms');
+    return collection.valueChanges();
+  }
+
+  public GetMyAnymmousChat(path: string, uid: string) {
+    const collection = this
+    .dbRef
+    .collection('ChatRooms/' + uid + '/rooms/' + path + '/' + 'chats/');
+    return collection.valueChanges();
+  }
 }

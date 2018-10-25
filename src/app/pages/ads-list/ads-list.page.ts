@@ -38,8 +38,7 @@ export class AdsListPage implements OnInit {
     const actionSheet = await this.actionSheetController.create({
       header: 'Actions',
       buttons: [{
-        text: 'this.ad.phone',
-        role: 'destructive',
+        text: 'Post New AD',
         icon: 'call',
         handler: () => {
           console.log('Call clicked');

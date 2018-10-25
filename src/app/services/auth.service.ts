@@ -106,7 +106,7 @@ export class AuthService {
             token: token,
             tokenId: token.id,
             stripeID: this.userDb.stripeID
-          }, { merge: true })
+          }, { merge: true } );
       });
   }
 
@@ -152,14 +152,14 @@ export class AuthService {
     return this.afsAuth.auth.signInAnonymously()
       .then((user) => {
         return this.authState = user;
-      })
+      });
   }
 
   resetPassword(email: string) {
     const auth = firebase.auth();
     return auth.sendPasswordResetEmail(email)
       .then(() => console.log('email sent'))
-      .catch((error) => console.log(error))
+      .catch((error) => console.log(error));
   }
 
   signOut(): void {
@@ -198,5 +198,4 @@ export class AuthService {
         return firebase.auth().signInWithCredential(facebookCredential);
       });
   }
-  
 }

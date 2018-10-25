@@ -21,6 +21,7 @@ export class ChatRoomPage implements OnInit, OnDestroy {
   public sub: any;
   public subAds: any;
   public cat: any;
+  
   message = new FormControl('');
 
   chatForm: FormGroup;

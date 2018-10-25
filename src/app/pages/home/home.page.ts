@@ -44,14 +44,9 @@ export class HomePage implements OnDestroy, OnInit, AfterViewInit {
   ngOnInit() {
 
     this.searchControl = new FormControl();
-    /*
     this.adSub = this.db.queryDataWithCat().subscribe( () => {
       this.showSpinners = false;
     });
-    */
-  }
-
-  ngAfterViewInit() {
 
     if (this.geo) {
       this.geo.getCurrentPosition().then((resp) => {
@@ -74,6 +69,36 @@ export class HomePage implements OnDestroy, OnInit, AfterViewInit {
         this.showSpinners = false;
       });
     }
+
+    this.mapsAPILoader.load().then(() => {
+      const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
+      autocomplete.addListener('place_changed', () => {
+        this.ngZone.run(() => {
+          // get the place result
+          const place: google.maps.places.PlaceResult = autocomplete.getPlace();
+
+          // verify result
+          if (place.geometry === undefined || place.geometry === null) {
+            return;
+          }
+
+          console.log('***********');
+          console.log(place);
+
+          // set latitude, longitude and zoom
+          this.db.lat = place.geometry.location.lat();
+          this.db.lng = place.geometry.location.lng();
+          this.db.setCenterPoint();
+          this.db.queryDataWithCat();
+          this.zoom = 12;
+        });
+      });
+    });
+
+
+  }
+
+  ngAfterViewInit() {
   }
 
   async presentCatModal() {

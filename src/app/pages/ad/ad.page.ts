@@ -23,6 +23,9 @@ export class AdPage implements OnInit, OnDestroy {
   private ad: any;
   private adSub: any;
   private showSpinners = true;
+  slideOpts = {
+    effect: 'slide'
+  };
 
   constructor(public router: Router,
     public actionSheetController: ActionSheetController,
