@@ -5,6 +5,7 @@ import { DatabaseService } from '../../services/database.service';
 import { AuthService } from '../../services/auth.service';
 import { AlertController } from '@ionic/angular';
 import { ActionSheetController } from '@ionic/angular';
+import { AngularFireStorageModule } from '@angular/fire/storage';
 
 @Component({
   selector: 'app-post-ad',
@@ -21,7 +22,8 @@ export class PostAdPage implements OnInit {
     public db: DatabaseService,
     public auth: AuthService,
     public alertController: AlertController,
-    public actionSheetController: ActionSheetController) { }
+    public actionSheetController: ActionSheetController,
+    public fileStorage: AngularFireStorage) { }
 
   ngOnInit() {
     this.myForm = this.fb.group({
