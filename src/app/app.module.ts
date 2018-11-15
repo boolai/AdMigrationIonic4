@@ -30,6 +30,9 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { AgmCoreModule } from '@agm/core';
 import { AgmSnazzyInfoWindowModule } from '@agm/snazzy-info-window';
 
+import { Camera } from '@ionic-native/camera/ngx';
+
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -59,7 +62,8 @@ import { AgmSnazzyInfoWindowModule } from '@agm/snazzy-info-window';
     CallNumber,
     InAppBrowser,
     Facebook,
-    Geolocation
+    Geolocation,
+    Camera
   ],
   bootstrap: [AppComponent]
 })

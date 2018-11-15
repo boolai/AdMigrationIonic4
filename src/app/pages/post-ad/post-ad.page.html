@@ -20,6 +20,12 @@
 </ion-header>
 
 <ion-content>
+  <ion-icon name="camera" (click)="uploadHandler()"></ion-icon>
+  <ion-icon name="camera" (click)="openPhotoLib()"></ion-icon>
+  <ion-icon name="camera" (click)="openPhotoLib()"></ion-icon>
+  <ng-container *ngIf="progress | async as percent">
+    <progress [value]="percent" max="100"></progress>
+  </ng-container>
   <div class="form-group">
     <form [formGroup]="myForm">
       <div style="padding: 10px;">
@@ -115,7 +121,8 @@
           <ion-item>
             <ion-label>Category</ion-label>
             <ion-label text-center>{{myForm.value.cat2}}</ion-label>
-            <ion-select value="{{cat?.title}}" okText="Choose" cancelText="Dismiss" interface="action-sheet" formControlName="cat2">
+            <ion-select value="{{cat?.title}}" okText="Choose" cancelText="Dismiss" interface="action-sheet"
+              formControlName="cat2">
               <ion-select-option *ngFor="let cat of cats | async" value="{{cat?.title}}">{{cat?.title}}</ion-select-option>
             </ion-select>
           </ion-item>
