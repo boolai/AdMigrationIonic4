@@ -9,6 +9,8 @@ import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/storage
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
+import { ViewChild } from '@angular/core';
+import { Slides } from '@ionic/angular';
 
 @Component({
   selector: 'app-post-ad',
@@ -17,12 +19,19 @@ import { finalize } from 'rxjs/operators';
 })
 export class PostAdPage implements OnInit {
 
+  @ViewChild(Slides) slides: Slides;
+
   myForm: FormGroup;
   cats: any;
   task: AngularFireUploadTask;
   progress: any;  // Observable 0 to 100
   image: string; // base64
   downloadURL: Observable<string>;
+  unsub: any;
+  photos: string [] = new Array();
+  slideOpts = {
+    effect: 'slide'
+  };
 
   constructor(public location: Location,
     public fb: FormBuilder,
@@ -31,17 +40,20 @@ export class PostAdPage implements OnInit {
     public alertController: AlertController,
     public actionSheetController: ActionSheetController,
     public fileStorage: AngularFireStorage,
-    private camera: Camera) {}
+    private camera: Camera) { }
 
-  async captureImage() {
+  async captureImage(srcType: string) {
     const options: CameraOptions = {
       quality: 100,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
-      sourceType: this.camera.PictureSourceType.CAMERA
+      sourceType: (srcType === 'camera') ? this.camera.PictureSourceType.CAMERA : this.camera.PictureSourceType.PHOTOLIBRARY
     };
-    return await this.camera.getPicture(options);
+    return await this.camera.getPicture(options)
+      .catch(err => {
+        this.presentAlert(err);
+      });
   }
 
   createUploadTask(file: string): void {
@@ -56,21 +68,19 @@ export class PostAdPage implements OnInit {
       finalize(() => {
         this.downloadURL = fileRef.getDownloadURL();
         console.log(this.downloadURL);
-        this.downloadURL.subscribe(url => {
+        this.unsub = this.downloadURL.subscribe(url => {
           console.log(url);
+          this.photos.push(url);
+          this.slides.update();
+          console.log('# of Slides => ' + this.slides.length());
+          this.unsub.unsubscribe();
         });
       })
     ).subscribe();
-
-    /*
-    fileRef.getDownloadURL().subscribe(ref => {
-      console.log('REF', ref);
-      this.downloadURL = ref;
-    });*/
   }
 
-  async uploadHandler() {
-    const base64 = await this.captureImage();
+  async uploadHandler(srcType: string) {
+    const base64 = await this.captureImage(srcType);
     this.createUploadTask(base64);
   }
 
@@ -102,6 +112,7 @@ export class PostAdPage implements OnInit {
 
     this.myForm.valueChanges.subscribe(console.log);
     this.cats = this.db.getCategories();
+    
   }
 
   public goBack() {
@@ -176,4 +187,41 @@ export class PostAdPage implements OnInit {
     });
     await actionSheet.present();
   }
+
+  slideChanged() {
+    const currentIndex = this.slides.getActiveIndex();
+    console.log('Current index is', currentIndex);
+  }
+
+  loadPrev() {
+    console.log('Prev');
+    let newIndex = this.slides.getActiveIndex();
+
+    newIndex++;
+
+    // Workaround to make it work: breaks the animation
+    this.slides.slideTo(newIndex, 0, false);
+
+}
+
+loadNext() {
+    if(this.firstLoad) {
+      // Since the initial slide is 1, prevent the first 
+      // movement to modify the slides
+      this.firstLoad = false;
+      return;
+    }
+
+    console.log('Next');
+    let newIndex = this.slider.getActiveIndex();
+
+    newIndex--;
+    this.numbers.push(this.numbers[this.numbers.length - 1] + 1);
+    this.numbers.shift();
+
+    // Workaround to make it work: breaks the animation
+    this.slider.slideTo(newIndex, 0, false);
+
+    console.log(`New status: ${this.numbers}`);
+}
 }

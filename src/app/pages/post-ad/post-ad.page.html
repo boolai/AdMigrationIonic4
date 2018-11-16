@@ -20,12 +20,6 @@
 </ion-header>
 
 <ion-content>
-  <ion-icon name="camera" (click)="uploadHandler()"></ion-icon>
-  <ion-icon name="camera" (click)="openPhotoLib()"></ion-icon>
-  <ion-icon name="camera" (click)="openPhotoLib()"></ion-icon>
-  <ng-container *ngIf="progress | async as percent">
-    <progress [value]="percent" max="100"></progress>
-  </ng-container>
   <div class="form-group">
     <form [formGroup]="myForm">
       <div style="padding: 10px;">
@@ -45,11 +39,28 @@
         <ion-checkbox color="danger" formControlName="isChatOn"></ion-checkbox>
       </div>
       <section class="photos">
-        <ion-slides pager="true" [options]="slideOpts">
-          <ion-slide *ngFor="let p of ad?.photos" (click)="openGallery(p)">
-            <ion-img [src]="p.url"></ion-img>
+        <ion-slides pager="true" [options]="slideOpts" (ionSlideDidChange)="slideChanged()" #slider (ionSlideNextEnd)="loadNext()" (ionSlidePrevEnd)="loadPrev()" [initialSlide]="1">
+          <ion-slide *ngFor="let p of photos" (click)="openGallery(p)">
+            <ion-img [src]="p"></ion-img>
           </ion-slide>
         </ion-slides>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-icon name="camera" (click)="uploadHandler('camera')" style="height:3em; width:3em;"></ion-icon>
+            </ion-col>
+            <ion-col>
+              <ion-icon name="images" (click)="uploadHandler('libary')" style="height:3em; width:3em;"></ion-icon>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ng-container *ngIf="progress | async as percent">
+                <progress [value]="percent" max="100"></progress>
+              </ng-container>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
       </section>
       <section class="description">
         <ion-list>
